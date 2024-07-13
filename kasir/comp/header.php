@@ -41,6 +41,12 @@
         background-size: cover;
         background-position: center;
       }
+      .navbar {
+        background-image: url('asset/img/5.jpg');
+        /* Ganti dengan path atau URL gambar Anda */
+        background-size: cover;
+        background-position: center;
+      }
       </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
