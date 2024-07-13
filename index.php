@@ -1,194 +1,192 @@
-<?php require 'vendors/fungsi/fungsi.php'; ?>
 
+<!-- mengubah halaman login -->
 <!DOCTYPE html>
-<html>
-<title>LOGIN | WEB KASIR</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/png" href="vendors/img/logo_kasir_kita.png">
-<link rel="stylesheet" href="vendors/dist/css/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="vendors/dist/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="vendors/dist/css/bootstrap.min.css">
-<style>
-body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+<html lang="en" id="home">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-body, html {
-  height: 100%;
-  line-height: 1.8;
-}
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
-/* Full height image header */
-.bgimg-1 {
-  background-position: center;
-  background-size: cover;
-  background-image: url("/w3images/mac.jpg");
-  min-height: 100%;
-}
+    <!-- Font Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet" />
 
-.w3-bar .w3-button {
-  padding: 16px;
-}
+    <!-- CSS -->
+    <link rel="stylesheet" href="dist/css/style.css" />
+    <title>kasirmee</title>
 
-a {
-  
-}
-</style>
-<body>
-
-<!-- Navbar (sit on top) -->
-    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
-      <div class="container">
-        <div class="navbar-header page-scroll">
-          <a class="navbar-brand">Login Web Kasir</a>
+   <!--css manual-->
+    <link rel="stylesheet" href="manual.css">
+   
+  </head>
+  <body style="background-image: url('assets/img/dark-grunge-style-scratched-metal-surface-edgy-weathered-texture_1106493-30652.avif');">
+    <header>
+      <div class="navbar">
+        <div class="container">
+          <div class="box-navbar " >
+            <div class="logo">
+              <h1>Kasirmee</h1>
+            </div>
+            <ul class="menu">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#services">about us</a></li>
+              <li><a href="#pantai">team</a></li>
+              <li class="active"><a href="#daftar">daftar</a></li>
+            </ul>
+            <i class="fa-solid fa-bars menu-bar"></i>
+          </div>
         </div>
       </div>
-    </nav>  
 
-    <section class="bagian3">
-            <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-4 col-md-offset-4">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h1 class="panel-title text-center">Login Web Kasir</h1>
-              </div>
-              <div class="panel-body">
-                <form class="form" action="" method="post">
-                  <div class="form-group input-group">
-                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                    <input class="form-control" type="text" name="user"  required="" autofocus="" placeholder="Masukkan username Anda">
-                  </div>
-                 
-                  <div class="form-group input-group">
-                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                    <input class="form-control" type="password" name="pass" value="" required="" placeholder="Password">
-                  </div>
-                 
-                  <div class="form-group">
-                    <a href="index.php">
-                      <button type="button" name="button" class="btn btn-danger">Batal</button>
-                    </a>
-
-                    <input class="btn btn-success" type="submit" name="daftar" value="Masuk">
-                  </div>
-                  <?php 
-                  if (@$_POST['daftar']) {
-                    $proses->login();
-                  }
-                   ?>
-                </form>
-              </div>
+      <div class="hero">
+        <div class="container">
+          <div class="box-hero" >
+            <div class="box">
+              <h1>
+                Selamat datang di <br />
+                halaman website kasirmee
+              </h1>
+              <p>ini web kasir , kalau yang basah ma kasiram air</p>
+             
+            </div>
+            <div class="box">
+              <img src="assets/img/blur-buy-card-cash.jpg" style="border-radius: 35px;" alt="" />
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </header>
 
-<!-- Promo Section - "We know design" -->
+    <!-- Services -->
+    <div class="services" id="services">
 
-
-
-
-<!-- MODAL -->
-    <!-- FACEBOOK -->
-    <div class="modal fade" id="exampleModalCenterFB" tabindex="-1" role="dialog"  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div class="container">
+      <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+        <div class="box-services" style="background-color: transparent; /* Warna latar belakang kontainer transparan */
+    border: 1px solid #ccc; /* Border solid abu-abu */
+    border-radius: 10px; /* Sudut bulat untuk kontainer */ ;" >
+          <div class="box">
+            <i class="fa-solid fa-coins"></i>
+            <h4>mudah di gunakan</h4>
+            <p></p>
+          </div>
+          <div class="box">
+            <i class="fa-solid fa-certificate"></i>
+            <h4>menarik</h4>
+            <p></p>
+          </div>
+          <div class="box">
+            <i class="fa-solid fa-people-roof"></i>
+            <h4>Aman dan Ramah</h4>
+            <p></p>
+          </div>
+        </div>
       </div>
-      <div class="modal-body">
-       <strong>FACEBOOK</strong><br>
-       <p><a href="https://www.facebook.com/zibran.vitadiyatama.7/" target="_blank">https://www.facebook.com/zibran.vitadiyatama.7/</a></p>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!-- Services -->
 
+    <!-- Pantai -->
+<div class="pantai" id="pantai">
+  <div class="container">
+  <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="box-pantai">
+      <div class="box">
+        <img src="assets/img/autumn-leaf-falling-revealing-intricate-leaf-vein-generated-by-ai_188544-9869.avif" alt="" />
+        <h3>Gawang jati alam</h3>
+        <p>Ketua</p>
+        
       </div>
+      <div class="box">
+        <img src="assets/img/autumn-leaf-falling-revealing-intricate-leaf-vein-generated-by-ai_188544-9869.avif" alt="" />
+        <h3>dito edhitya</h3>
+        <p>Anggota</p>
+        
+      </div>
+      <div class="box">
+        <img src="assets/img/autumn-leaf-falling-revealing-intricate-leaf-vein-generated-by-ai_188544-9869.avif" alt="" />
+        <h3>Aditya Reza I</h3>
+        <p>Anggota</p>
        
+      </div>
     </div>
   </div>
 </div>
-</div>
-    <!-- GITHUB -->
- <div class="modal fade" id="exampleModalCenterGIT" tabindex="-1" role="dialog"  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       <strong>GITHUB</strong><br>
-       <p><a href="https://github.com/ZibranovSky" target="_blank">https://github.com/ZibranovSky</a></p>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+<!-- Pantai -->
 
+    <!-- Daftar -->
+    <div class="daftar" id="daftar">
+      <div class="container">
+      <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+        <div class="box-daftar">
+          <h1>
+            silahkan login untuk memulai <br />
+          </h1>
+          <div class="button-container">
+          <p class="login-text"><b>login jika sudah<br> memiliki akun</b></p>
+    <a href="login_admin.php" class="button">Login</a>
+</div>
+    <div class="button-container">
+   <p class="login-text"><b>regis jika belum <br>memiliki akun</b></p>
+    <a href="register.php" class="button">Register</a>
+</div>
+
+          
+        </div>
       </div>
-       
     </div>
-  </div>
-</div>
-</div>
-  <!-- WHATSAPP -->
- <div class="modal fade" id="exampleModalCenterWA" tabindex="-1" role="dialog"  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       <strong>WHATSAPP</strong><br>
-       <p>0895-6357-29348</p>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    <!-- Daftar -->
 
+    <!-- Footer -->
+    <div class="footer">
+      <div class="container">
+        <div class="box-footer">
+          
+            <p>&copy; Copyright by <span>kasirmee</span> All Rights Reserved 2024</p>
+          </div>
+        </div>
       </div>
-       
     </div>
-  </div>
-</div>
-</div>
-  <!-- LINKEDIN -->
-   <div class="modal fade" id="exampleModalCenterLIN" tabindex="-1" role="dialog"  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       <strong>LINKEDIN</strong><br>
-       <p><a href="https://www.linkedin.com/in/muhammad-zibran-fitadiyatama-6550801a9/" target="_blank">https://www.linkedin.com/in/muhammad-zibran-fitadiyatama-6550801a9/</a></p>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+    <!-- Footer -->
 
-      </div>
-       
-    </div>
-  </div>
-</div>
-</div>
-
-<!-- END MODAL -->
-
- <!-- jQuery -->
-    <script src="<?= url() ?>vendors/jquery/jquery.min.js"></script>
-
-    <!--include-->
-    <script src="<?= url() ?>vendors/js/bootstrap.min.js"></script>
-
-
-
-</body>
+    <script src="dist/js/script.js"></script>
+  </body>
 </html>
