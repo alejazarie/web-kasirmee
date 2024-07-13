@@ -34,9 +34,22 @@
   <link rel="stylesheet" href="<?= url() ?>plugins/summernote/summernote-bs4.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <style>
+    .content-wrapper {
+      background-color:; /* Warna background merah */
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px RGB (0, 255, 254);
+      background: rgb(34,193,195);
+      background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(240,45,253,1) 100%); /*edit background bagian container*/ 
+    }
+  </style>
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
+
+
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
