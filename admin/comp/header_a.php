@@ -72,7 +72,7 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color:red;">
     <!-- Brand Logo -->
     <a href="index.php" class="brand-link">
       <img src="<?= url()?>img/logo_kasir_kita.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
