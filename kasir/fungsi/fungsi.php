@@ -81,75 +81,55 @@ function delete_user()
 // update user
 function update_user()
 {
-	
-	global $koneksi;
-	$id = $_POST['id'];
-	$username = $_POST['username'];
-	$password = md5($_POST['password']);
-	$nama = $_POST['nama'];
-	
-	$foto = $_FILES['foto']['name'];
+    global $koneksi;
+    $id = mysqli_real_escape_string($koneksi, $_POST['id']);
+    $username = mysqli_real_escape_string($koneksi, $_POST['username']);
+    $password = mysqli_real_escape_string($koneksi, md5($_POST['password'])); // Gunakan md5 atau fungsi hash lainnya sesuai kebutuhan
+    $nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
+    
+    // Untuk foto, pastikan file upload di-handle dengan benar
+    if (!empty($_FILES['foto']['name'])) {
+        $foto = $_FILES['foto']['name'];
+        $file_tmp = $_FILES['foto']['tmp_name'];
 
-	// unlink
-	$unlink = mysqli_query($koneksi, "SELECT * FROM tb_user WHERE id='$id'");
-	$row = mysqli_fetch_array($unlink);
+        // Proses upload foto
+        $allowed_ext = array('png', 'jpg');
+        $x = explode(".", $foto);
+        $ekstensi = strtolower(end($x));
+        $angka_acak = rand(1, 999);
+        $nama_file_baru = $angka_acak . '-' . $foto;
 
-	$hapus_foto = $row['foto'];
-	
-	
+        if (in_array($ekstensi, $allowed_ext)) {
+            move_uploaded_file($file_tmp, '../admin/img/' . $nama_file_baru);
+        }
 
-	// update
+        // Query untuk mengupdate data dengan foto baru
+        $query = "UPDATE tb_user SET username='$username', password='$password', nama='$nama', foto='$nama_file_baru' WHERE id='$id'";
+    } else {
+        // Query untuk mengupdate data tanpa mengubah foto
+        $query = "UPDATE tb_user SET username='$username', password='$password', nama='$nama' WHERE id='$id'";
+    }
 
-	if(isset($_POST['ubahfoto']))
-	{
-		if ($row['foto']=="") 
-		{
-				if ($foto != "") {
-				$allowed_ext = array('png','jpg');
-				$x = explode(".", $foto);
-				$ekstensi = strtolower(end($x));
-				$file_tmp = $_FILES['foto']['tmp_name'];
-				$angka_acak = rand(1,999);
-		   		$nama_file_baru = $angka_acak.'-'.$foto;
-		   		    if (in_array($ekstensi, $allowed_ext) === true) {
-		      			move_uploaded_file($file_tmp, '../admin/img/'.$nama_file_baru);
-		      			$result =  mysqli_query($koneksi, "UPDATE tb_user SET username='$username', password='$password', nama='$nama', foto='$nama_file_baru' WHERE id='$id'");
-		      			
-		      			
-		    }
+    // Eksekusi query
+    $result = mysqli_query($koneksi, $query);
 
-
-
-			}
-		}else if ($row['foto']!="") {
-			if ($foto != "") {
-				$allowed_ext = array('png','jpg');
-				$x = explode(".", $foto);
-				$ekstensi = strtolower(end($x));
-				$file_tmp = $_FILES['foto']['tmp_name'];
-				$angka_acak = rand(1,999);
-		   		$nama_file_baru = $angka_acak.'-'.$foto;
-		   		    if (in_array($ekstensi, $allowed_ext) === true) {
-		      			move_uploaded_file($file_tmp, '../admin/img/'.$nama_file_baru);
-		      			$result =  mysqli_query($koneksi, "UPDATE tb_user SET username='$username', password='$password', nama='$nama', foto='$nama_file_baru' WHERE id='$id'");
-		      			if ($result) {
-		      				unlink("../admin/img/$hapus_foto");
-		      			}
-
-		      			
-		    }
-
-
-
-			}
-		}	
-	}
-
-	if (empty($_POST['foto'])) {
-		return  mysqli_query($koneksi, "UPDATE tb_user SET username='$username', password='$password', nama='$nama' WHERE id='$id'");
-	}
-
+    // Cek apakah berhasil atau tidak
+    if ($result) {
+        // Jika ada foto lama, hapus foto lama dari direktori
+        if (!empty($_POST['ubahfoto'])) {
+            $unlink = mysqli_query($koneksi, "SELECT foto FROM tb_user WHERE id='$id'");
+            $row = mysqli_fetch_array($unlink);
+            $hapus_foto = $row['foto'];
+            if (!empty($hapus_foto)) {
+                unlink("../admin/img/$hapus_foto");
+            }
+        }
+        return true; // Berhasil update
+    } else {
+        return false; // Gagal update
+    }
 }
+
 
 // ---------------------------------------------------TRANSAKSI SECTION----------------------------------------------------------
 function insert_transaksi()
