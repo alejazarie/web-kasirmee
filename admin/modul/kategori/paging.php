@@ -39,8 +39,8 @@ foreach ($data_kat as $pro):
 
                               
                               <td>
-                                <!-- Trigger Modal Hapus -->
-                              <div data-toggle="modal" data-target="#hapus-kat<?= $pro['id'] ?>">
+                               <!-- Trigger Modal Hapus -->
+                               <div data-toggle="modal" data-target="#hapus-kat<?= $pro['id'] ?>">
                               <button type="button" class="btn btn-danger" data-toggle="tooltip" title="Hapus">
                               <i class="fa fa-trash"></i>
                               </button>
@@ -81,45 +81,55 @@ foreach ($data_kat as $pro):
 
 
 
-                    
-                    <!-- Trigger Modal Edit -->
-                  <div data-toggle="modal" data-target="#edit-kat<?= $pro['id'] ?>">
-                  <button type="button" class="btn btn-info datapotensi" data-toggle="tooltip" title="Edit">
-                    <i class="fa fa-edit"></i>
-                  </button>
-                </div>
+              <!-- Trigger Modal Edit -->
+<div data-toggle="modal" data-target="#edit-kat<?= $pro['id'] ?>">
+    <button type="button" class="btn btn-info datapotensi" data-toggle="tooltip" title="Edit">
+        <i class="fa fa-edit"></i>
+    </button>
+</div>
 
-                              <!-- Modal Edit-->
-          <div class="modal fade" id="edit-kat<?= $pro['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="edit-kat<?= $pro['id'] ?>" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<!-- Modal Edit -->
+<div class="modal fade" id="edit-kat<?= $pro['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="edit-kat<?= $pro['id'] ?>" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                  </button>
-                  <b><p class="modal-title" id="edit-siswa<?= $pro['id'] ?>" style="text-align: center; font-size: 18px;">Edit Data Kategori</p></b>
-                </div>
-                <div class="modal-body">
-                 <form action="" method="POST" enctype="multipart/form-data">
-                  <input type="hidden" value="<?= $pro['id'];?>" name="id">
-  <div class="form-group">
-    <label>Nama Kategori</label>
-    <input type="text" class="form-control" value="<?= $pro['kategori'];?>" id="exampleInputEmail1" name="kategori" aria-describedby="emailHelp">
-    
-  </div>
- 
-  
-
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" name="edit" class="btn btn-primary">Save changes</button>
-      </div>
-        </form>
-                </div>
-              </div>
+                </button>
+                <b><p class="modal-title" id="edit-siswa<?= $pro['id'] ?>" style="text-align: center; font-size: 18px;">Edit Data Kategori</p></b>
             </div>
+            <div class="modal-body">
+                <form action="" method="POST" enctype="multipart/form-data" onsubmit="return validateForm(this);">
+                    <input type="hidden" value="<?= $pro['id'];?>" name="id">
+                    <div class="form-group">
+                        <label>Nama Kategori</label>
+                        <input type="text" class="form-control" value="<?= htmlspecialchars($pro['kategori']); ?>" id="exampleInputEmail1" name="kategori" aria-describedby="emailHelp">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" name="edit" class="btn btn-primary">Save changes</button>
+            </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  
+function validateForm(form) {
+    var kategori = form.kategori.value.trim().replace(/'/g, ""); // Hapus tanda kutip tunggal
+    if (kategori === "") {
+        alert("Silakan isi nama kategori.");
+        return false; // Cegah pengiriman form
+    }
+    form.kategori.value = kategori; // Perbarui nilai input
+    return true; // Izinkan pengiriman form
+}
+</script>
+
+
 
                               </td>
                               </tr>
