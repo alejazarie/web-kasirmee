@@ -1,56 +1,63 @@
 <?php
 // Tangkap data dari form
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
+    $username = trim($_POST['username']);  // Trim whitespace from username input
     $password = md5($_POST['password']); // Gunakan hash atau enkripsi sesuai kebutuhan aplikasi Anda
     $nama = $_POST['nama'];
     $level = $_POST['level'];
 
-    // Koneksi ke database
-    $servername = "localhost";
-    $dbusername = "root"; // Ganti dengan username database Anda
-    $dbpassword = ""; // Ganti dengan password database Anda
-    $dbname = "kasir_zibran";
-
-    $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
-
-    if ($conn->connect_error) {
-        die("Koneksi gagal: " . $conn->connect_error);
-    }
-
-    // Query untuk mengecek apakah username sudah ada pada level admin atau kasir
-    $check_sql = "SELECT * FROM tb_user WHERE username = ? AND (level = 'admin' OR level = 'kasir')";
-    $check_stmt = $conn->prepare($check_sql);
-    $check_stmt->bind_param("s", $username);
-    $check_stmt->execute();
-    $result = $check_stmt->get_result();
-
-    if ($result->num_rows > 0) {
-        // Username sudah digunakan untuk level admin atau kasir
-        $notification_message = "Username sudah digunakan.";
-        $notification_class = "alert alert-warning alert-dismissible fade show";
+    // Validasi apakah username kosong setelah di-trim
+    if ($username === "") {
+        $notification_message = "Username tidak boleh kosong atau hanya berisi spasi.";
+        $notification_class = "alert alert-danger alert-dismissible fade show";
     } else {
-        // Username belum digunakan, lanjutkan untuk INSERT ke database
-        $sql = "INSERT INTO tb_user (username, password, nama, level) VALUES (?, ?, ?, ?)";
+        // Koneksi ke database
+        $servername = "localhost";
+        $dbusername = "root"; // Ganti dengan username database Anda
+        $dbpassword = ""; // Ganti dengan password database Anda
+        $dbname = "kasir_zibran";
 
-        // Initialize a statement object
-        $stmt = $conn->prepare($sql);
+        $conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
 
-        // Bind parameters to the SQL query
-        $stmt->bind_param("ssss", $username, $password, $nama, $level);
-
-        // Execute the statement
-        if ($stmt->execute()) {
-            // Redirect with success flag
-            header("Location: register.php?success=true");
-            exit();
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+        if ($conn->connect_error) {
+            die("Koneksi gagal: " . $conn->connect_error);
         }
-    }
 
-    $conn->close();
+        // Query untuk mengecek apakah username sudah ada pada level admin atau kasir
+        $check_sql = "SELECT * FROM tb_user WHERE username = ? AND (level = 'admin' OR level = 'kasir')";
+        $check_stmt = $conn->prepare($check_sql);
+        $check_stmt->bind_param("s", $username);
+        $check_stmt->execute();
+        $result = $check_stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            // Username sudah digunakan untuk level admin atau kasir
+            $notification_message = "Username sudah digunakan.";
+            $notification_class = "alert alert-warning alert-dismissible fade show";
+        } else {
+            // Username belum digunakan, lanjutkan untuk INSERT ke database
+            $sql = "INSERT INTO tb_user (username, password, nama, level) VALUES (?, ?, ?, ?)";
+
+            // Initialize a statement object
+            $stmt = $conn->prepare($sql);
+
+            // Bind parameters to the SQL query
+            $stmt->bind_param("ssss", $username, $password, $nama, $level);
+
+            // Execute the statement
+            if ($stmt->execute()) {
+                // Redirect with success flag
+                header("Location: register.php?success=true");
+                exit();
+            } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+            }
+        }
+
+        $conn->close();
+    }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
