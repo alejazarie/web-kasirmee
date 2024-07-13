@@ -290,11 +290,11 @@ function hapus_kategori()
 
 function update_kategori()
 {
-	global $koneksi;
-	$id = $_POST['id'];
-	$kategori = $_POST['kategori'];
+    global $koneksi;
+    $id = mysqli_real_escape_string($koneksi, $_POST['id']);
+    $kategori = mysqli_real_escape_string($koneksi, $_POST['kategori']);
 
-	return mysqli_query($koneksi, "UPDATE tb_kat SET kategori='$kategori' WHERE id='$id'");
+    return mysqli_query($koneksi, "UPDATE tb_kat SET kategori='$kategori' WHERE id='$id'");
 }
 
 

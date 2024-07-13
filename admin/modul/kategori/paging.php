@@ -80,8 +80,7 @@ foreach ($data_kat as $pro):
                     </form><br>
 
 
-
-              <!-- Trigger Modal Edit -->
+<!-- Trigger Modal Edit -->
 <div data-toggle="modal" data-target="#edit-kat<?= $pro['id'] ?>">
     <button type="button" class="btn btn-info datapotensi" data-toggle="tooltip" title="Edit">
         <i class="fa fa-edit"></i>
@@ -117,14 +116,12 @@ foreach ($data_kat as $pro):
 </div>
 
 <script>
-  
 function validateForm(form) {
-    var kategori = form.kategori.value.trim().replace(/'/g, ""); // Hapus tanda kutip tunggal
+    var kategori = form.kategori.value.trim(); // Ambil nilai tanpa menghapus tanda kutip
     if (kategori === "") {
         alert("Silakan isi nama kategori.");
         return false; // Cegah pengiriman form
     }
-    form.kategori.value = kategori; // Perbarui nilai input
     return true; // Izinkan pengiriman form
 }
 </script>
