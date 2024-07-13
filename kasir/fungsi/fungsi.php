@@ -184,47 +184,42 @@ function insert_transaksi()
 
 function update_transaksi_1()
 {
-	global $koneksi;
-	$id = $_POST['id'];
-	$kdproduk = $_POST['kdproduk'];
-	$jumlah_beli = $_POST['jumlah_beli'];
-	$stok = $_POST['stok'];
-	// Ubah stok tb_produk
-	$kurang_stok = $stok - $jumlah_beli;
-	
-	
-	$query =  mysqli_query($koneksi, "UPDATE tb_produk SET stok='$kurang_stok' WHERE kdproduk='$kdproduk'");
+    global $koneksi;
+    $id = $_POST['id'];
+    $kdproduk = $_POST['kdproduk'];
+    $jumlah_beli = isset($_POST['jumlah_beli']) ? $_POST['jumlah_beli'] : 0; // Tetapkan nilai default jika tidak ada input
 
-	
+    // Ambil data harga dan stok dari tabel produk
+    $select_produk = mysqli_query($koneksi, "SELECT harga, stok FROM tb_produk WHERE kdproduk='$kdproduk'");
+    $produk_data = mysqli_fetch_assoc($select_produk);
+    $harga_asli = $produk_data['harga'];
+    $stok_produk = $produk_data['stok'];
 
+    // Validasi stok cukup untuk update
+    if ($jumlah_beli > $stok_produk) {
+        echo '<script>alert("Stok tidak mencukupi untuk jumlah beli tersebut.")</script>';
+        return;
+    }
 
-	$harga = $_POST['harga'];
-	// jumlah harga
-	$harga_baru = $jumlah_beli * $harga;
+    // Hitung total harga baru berdasarkan jumlah beli baru
+    $harga_baru = $jumlah_beli * $harga_asli;
 
-	// // query validasi
-	// $val = mysqli_query($koneksi, "SELECT * FROM transaksi_temp WHERE kdproduk='$kdproduk'");
-	// $row = mysqli_fetch_row($row);
+    // Update jumlah beli dan total harga di transaksi_temp
+    $update_transaksi = mysqli_query($koneksi, "UPDATE transaksi_temp SET jumlah_beli='$jumlah_beli', total='$harga_baru' WHERE id='$id'");
 
-	// if ($row) {
-		
+    if (!$update_transaksi) {
+        echo "Error updating transaksi_temp: " . mysqli_error($koneksi);
+        return;
+    }
 
-	// }else{
-	// 	$query_2 = mysqli_query($koneksi, "UPDATE transaksi_temp SET jumlah_beli='$jumlah_beli', total='$harga_baru' WHERE id='$id'");
-	// }
-
-	// update transaksi temp
-	$query_1 = mysqli_query($koneksi, "UPDATE transaksi_temp SET jumlah_beli='$jumlah_beli', total='$harga_baru' WHERE kdproduk='$kdproduk'");
-	// update laporan penjualan
-	$query_2 = mysqli_query($koneksi, "UPDATE laporan_penjualan SET jumlah_beli='$jumlah_beli', total='$harga_baru' WHERE kdproduk='$kdproduk'");
-
-
-	
+    // Refresh halaman setelah berhasil update
+    echo "<meta http-equiv='refresh' content='0'>";
 }
+
 // url
 function url()
 {
-	return $url = "//localhost/web-kasir-master/vendors/";
+	return $url = "//localhost/web-kasir/vendors/";
 }
 
 function rupiah($angka){
