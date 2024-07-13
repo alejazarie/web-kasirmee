@@ -60,7 +60,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Registrasi Admin/Kasir</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     
+    <style>
+        body {
+          
+            color: white;
+        }
+        .container {
+            max-width: 500px;
+            margin-top: 50px; /* Mengurangi margin-top agar lebih dekat dengan form */
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: transparent;
+            padding: 20px;
+        }
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid #ccc;
+            color: white;
+            padding: 8px;
+        }
+        .btn-primary {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid #ccc;
+            color: white;
+            padding: 8px;
+        }
+        .alert {
+            position: relative;
+            margin-top: 20px; /* Jarak notifikasi dari form */
+        }
+        .notification .close {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            color: white;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
         <?php
