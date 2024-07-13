@@ -33,10 +33,11 @@ $row = mysqli_fetch_array($select_2);
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Halaman Kasir</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
+        <div class="col-sm-11 text-center"> <!-- Menggunakan class text-center untuk membuat tulisan di tengah -->
+    <h1 class="m-0 text-dark">Halaman Kasir</h1>
+</div><!-- /.col -->
+
+          <div class="col-sm-11">
             <ol class="breadcrumb float-sm-right">
 
             </ol>
