@@ -19,9 +19,9 @@ if (isset($_POST['edit'])) {
 }
 
  ?>
-  <div class="content-wrapper">
+  <div class="content-wrapper" style=" background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(240,45,253,1) 100%);">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
+    <div class="content-header" style="background: url('asset\img/hb.jpg');">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -82,9 +82,14 @@ if (isset($_POST['edit'])) {
     </div>
   </div>
 </div>
-        		</div>
+
+</div>
         	</div>	
         </div>
+
+      
+
+       
 
        <div class="row">
         <div class="col-sm-12">
@@ -144,4 +149,5 @@ if (isset($_POST['edit'])) {
 
             <!-- solid sales graph -->
            </div>
+           
 <?php include 'comp/footer.php'; ?>
