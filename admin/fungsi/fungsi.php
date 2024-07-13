@@ -85,10 +85,7 @@ function delete_user()
 	$cekimg = mysqli_query($koneksi, "SELECT * FROM tb_user WHERE id='$id'");
 	$row = mysqli_fetch_array($cekimg);
 
-	// hapus gambar
-	$foto = $row['foto'];
-	unlink("img/$foto");
-	return mysqli_query($koneksi, "DELETE FROM tb_user WHERE id='$id'");
+	
 }
 
 // update user
