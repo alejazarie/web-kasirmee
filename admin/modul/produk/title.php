@@ -2,7 +2,12 @@
 <?php 
 
 if (isset($_POST['simpan'])) {
-  insert_produk();
+   // Validasi jika Nama produk kosong
+   if (empty($_POST['produk'])) {
+    echo '<center><div class="alert alert-danger" role="alert">Lengkapi data Nama produk terlebih dahulu!</div></center>';
+} else {
+    insert_produk();
+}
 }
 
 if (isset($_POST['hapus'])) {
