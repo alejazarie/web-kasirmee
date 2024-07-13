@@ -28,7 +28,7 @@ $row = mysqli_fetch_array($select_2);
 
 ?>
   <!-- Content Wrapper. Contains page content -->
- <div class="content-wrapper">
+ <div class="content-wrapper" style="background: linear-gradient(to right,green,white); ">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
