@@ -10,7 +10,7 @@
 }
 
 .box-daftar {
-    
+    background-image: url('asset/img/leaves-8413064_960_720.jpg');
     border-radius: 35px;
     padding: 20px; /* Mengurangi spasi internal di dalam kontainer gambar */
     text-align: center; /* Posisi teks menjadi tengah */
