@@ -117,15 +117,14 @@ foreach ($data_kat as $pro):
 
 <script>
 function validateForm(form) {
-    var kategori = form.kategori.value.trim(); // Ambil nilai tanpa menghapus tanda kutip
-    if (kategori === "") {
-        alert("Silakan isi nama kategori.");
+    var kategori = form.kategori.value.trim(); // Ambil nilai dan hapus spasi di awal/akhir
+    if (kategori === "" || kategori.length === 0) {
+        alert("Silakan isi nama kategori dengan benar.");
         return false; // Cegah pengiriman form
     }
     return true; // Izinkan pengiriman form
 }
 </script>
-
 
 
                               </td>
