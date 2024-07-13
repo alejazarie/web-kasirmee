@@ -100,6 +100,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="container">
+    <?php
+        // Menampilkan notifikasi jika username sudah digunakan
+       if (isset($notification_message)) {
+            echo '<div class="' . $notification_class . '">';
+            echo $notification_message;
+            echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+            echo '<span aria-hidden="true">&times;</span>';
+            echo '</button>';
+            echo '</div>';
+        }
+        ?> 
         <?php
         // Menampilkan notifikasi jika success flag ada
         if (isset($_GET['success']) && $_GET['success'] == 'true') {
