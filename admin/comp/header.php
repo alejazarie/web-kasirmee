@@ -51,17 +51,7 @@
 
     </ul>
 
-    <!-- SEARCH FORM -->
-    <form action="" method="POST" class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" name="cari" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" name="go" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
+  
 
     <!-- Right navbar links -->
  
