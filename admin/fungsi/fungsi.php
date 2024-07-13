@@ -230,55 +230,115 @@ function update_supplier()
 
 function insert_produk()
 {
-	global $koneksi;
-	$kdproduk = $_POST['kdproduk'];
-	$nm_produk = $_POST['nm_produk'];
-	$kategori = $_POST['kategori'];
-	$stok = $_POST['stok'];
-	
-	$harga = $_POST['harga'];
+    global $koneksi;
 
-	return mysqli_query($koneksi, "INSERT INTO tb_produk SET kdproduk='$kdproduk', nm_produk='$nm_produk', kategori='$kategori', stok='$stok', harga='$harga'");
+    // Pastikan semua data yang diperlukan ada di dalam $_POST
+    if (isset($_POST['kdproduk'], $_POST['nm_produk'], $_POST['kategori'], $_POST['stok'], $_POST['harga'])) {
+        $kdproduk = $_POST['kdproduk'];
+        $nm_produk = $_POST['nm_produk'];
+        $kategori = $_POST['kategori'];
+        $stok = $_POST['stok'];
+        $harga = $_POST['harga'];
 
+        // Gunakan parameterized query untuk menghindari SQL injection
+        $query = "INSERT INTO tb_produk (kdproduk, nm_produk, kategori, stok, harga) VALUES (?, ?, ?, ?, ?)";
+        $stmt = mysqli_prepare($koneksi, $query);
 
+        // Bind parameter ke statement
+        mysqli_stmt_bind_param($stmt, 'sssdi', $kdproduk, $nm_produk, $kategori, $stok, $harga);
+
+        // Eksekusi statement
+        $result = mysqli_stmt_execute($stmt);
+
+        // Periksa apakah insert berhasil
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
 }
+
+
+//edit 13/07/04
+function update_produk()
+{
+    global $koneksi;
+    $id = $_POST['id'];
+    $kdproduk = $_POST['kdproduk'];
+    $nm_produk = $_POST['nm_produk'];
+    $kategori = $_POST['kategori'];
+    $stok = $_POST['stok'];
+    $harga = $_POST['harga'];
+
+    // Gunakan parameterized query untuk menghindari SQL injection
+    $query = "UPDATE tb_produk SET kdproduk=?, nm_produk=?, kategori=?, stok=?, harga=? WHERE id=?";
+    $stmt = mysqli_prepare($koneksi, $query);
+
+    // Bind parameter ke statement
+    mysqli_stmt_bind_param($stmt, 'sssidi', $kdproduk, $nm_produk, $kategori, $stok, $harga, $id);
+
+    // Eksekusi statement
+    $result = mysqli_stmt_execute($stmt);
+
+    // Periksa apakah update berhasil
+    if ($result) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 function delete_produk()
 {
-	global $koneksi;
-	$id = $_POST['id'];
-	return mysqli_query($koneksi, "DELETE FROM tb_produk WHERE id='$id'");
-}
+    global $koneksi;
+    $id = $_POST['id']; // Anda dapat mengganti ini sesuai dengan cara Anda mengirimkan id dari form
 
-function update_produk()
-{
-	global $koneksi;
-	$id = $_POST['id'];
-	$kdproduk = $_POST['kdproduk'];
-	$nm_produk = $_POST['nm_produk'];
-	$kategori = $_POST['kategori'];
-	$stok = $_POST['stok'];
-	
-	$harga = $_POST['harga'];
+    // Gunakan parameterized query untuk menghindari SQL injection
+    $query = "DELETE FROM tb_produk WHERE id=?";
+    $stmt = mysqli_prepare($koneksi, $query);
 
-	return mysqli_query($koneksi, "UPDATE tb_produk SET kdproduk='$kdproduk', nm_produk='$nm_produk', kategori='$kategori', stok='$stok', harga='$harga'");
+    // Bind parameter ke statement
+    mysqli_stmt_bind_param($stmt, 'i', $id);
+
+    // Eksekusi statement
+    $result = mysqli_stmt_execute($stmt);
+
+    // Periksa apakah delete berhasil
+    if ($result) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function select_produk()
 {
-	global $koneksi;
-	$query = mysqli_query($koneksi, "SELECT count(id) AS jproduk FROM tb_produk");
-	$row = mysqli_fetch_array($query);
-	echo $row['jproduk'];
+    global $koneksi;
+    $query = mysqli_query($koneksi, "SELECT COUNT(id) AS jumlah_produk FROM tb_produk");
+    $row = mysqli_fetch_assoc($query);
+    return $row['jumlah_produk'];
 }
-
 // ------------------------------------------------KATEGORI SECTION---------------------------------------------------------------\\\
 
 function insert_kategori()
 {
-	global $koneksi;
-	$kategori = $_POST['kategori'];
-	return mysqli_query($koneksi, "INSERT INTO tb_kat SET kategori='$kategori'");
+    global $koneksi;
+    $kategori = trim($_POST['kategori']); // Menghapus spasi di awal dan akhir
+
+    // Validasi: Pastikan kategori tidak kosong
+    if (empty($kategori)) {
+        return false; // Kembali false jika kategori kosong
+    }
+
+    // Sanitasi input untuk mencegah SQL injection
+    $kategori = mysqli_real_escape_string($koneksi, $kategori);
+
+    // Melakukan query INSERT
+    return mysqli_query($koneksi, "INSERT INTO tb_kat SET kategori='$kategori'");
 }
 
 function hapus_kategori()

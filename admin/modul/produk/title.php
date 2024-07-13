@@ -89,10 +89,13 @@ if (isset($_POST['edit'])) {
     <label>Stok</label>
     <input type="text" class="form-control" id="exampleInputEmail1" name="stok" aria-describedby="emailHelp" >
  
-  </div>
-    
   
-
+    </select>
+  
+  
+   </select>
+ 
+  </div>
     <div class="form-group">
     <label>Harga</label>
     <input type="text" class="form-control" name="harga">

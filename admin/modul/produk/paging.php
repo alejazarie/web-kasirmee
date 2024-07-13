@@ -38,7 +38,7 @@ foreach ($data_siswa as $pro):
                               <td><?=  $pro['nm_produk'];?></td>
                               <td><?= $pro['kategori'];?></td>
                               <td><?=  $pro['stok'];?></td>
-                              
+                             
 
                               <td><?php 
 
@@ -80,6 +80,7 @@ foreach ($data_siswa as $pro):
                         <b><p><?= $pro['nm_produk']; ?></p></b>
                         <p>Stok</p>
                         <b><p><?= $pro['stok']; ?></p></b>
+                          
                          <p>Status</p>
                         <b><p><?php 
 
@@ -158,9 +159,15 @@ foreach ($data_siswa as $pro):
        <option><?= $kat['kategori'];?></option><?php endforeach; ?>
   </select>
   </div> 
+    
+  <!-- edit stok -->
 
+  <div class="form-group">
+                        <label>Stok Produk</label>
+                        <input type="number" class="form-control" value="<?= $pro['stok']; ?>" name="stok">
+                    </div>
+                     <!-- end -->
 
- 
 
    <div class="form-group">
     <label>Harga Produk</label>
