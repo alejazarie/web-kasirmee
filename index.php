@@ -20,7 +20,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet" />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="dists/css/style.css" />
+    <link rel="stylesheet" href="dist/css/style.css" />
     <title>kasirmee</title>
 
    <!--css manual-->
