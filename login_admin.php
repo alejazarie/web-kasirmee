@@ -16,6 +16,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 body, html {
   height: 100%;
   line-height: 1.8;
+   
 }
 
 /* Full height image header */
@@ -33,6 +34,62 @@ body, html {
 a {
   
 }
+.bagian3{
+  
+  display: flex;
+align-items: center;
+justify-content: center;
+min-height: 100vh;
+
+}
+
+.panel-heading{
+  padding-left: 40px;  /* Menambahkan padding di sisi kiri */
+  padding-right: 40px; /* Menambahkan padding di sisi kanan */
+  background-color: transparent;
+  border: 1px solid #ccc; /* Border solid abu-abu */
+  border-radius:10px;
+}
+
+.form {
+  background-color: transparent;
+}
+
+.form-group {
+  background-color: transparent;
+}
+
+.btn {
+  background-color: transparent;
+  border: 1px solid transparent;
+  color: #fff; /* Warna teks untuk tombol */
+}
+
+.btn:hover {
+  background-color: rgba(255, 255, 255, 0.3); /* Efek hover untuk tombol */
+  border: 1px solid #fff;
+}
+
+.input-group-addon{
+
+    background-color: transparent;
+
+
+}
+
+.form-control {
+  background-color: rgba(255, 255, 255, 0.1); /* Transparan dengan opasitas 0.1 */
+  border: 1px solid #ccc; /* Border solid abu-abu */
+  color: white; /* Warna teks hitam */
+  padding: 8px; /* Padding di dalam input field */
+}
+
+.text{
+  color:white;
+}
+
+
+
 </style>
 <body>
 
@@ -45,15 +102,12 @@ a {
       </div>
     </nav>  
 
-    <section class="bagian3">
-            <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-4 col-md-offset-4">
-            <div class="panel panel-default">
+    <div class="bagian3">
+          
               <div class="panel-heading">
-                <h1 class="panel-title text-center">Login Web Kasir</h1>
-              </div>
-              <div class="panel-body">
+                <h1 class="text">Login Admin/Kasir</h1>
+              
+              <div class="">
                 <form class="form" action="" method="post">
                   <div class="form-group input-group">
                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
@@ -67,10 +121,11 @@ a {
                  
                   <div class="form-group">
                     <a href="index.php">
-                      <button type="button" name="button" class="btn btn-danger">Batal</button>
+                      <button type="button" name="button" class="btn btn-danger">Kembali</button>
                     </a>
 
                     <input class="btn btn-success" type="submit" name="daftar" value="Masuk">
+                  </div>
                   </div>
                   <?php 
                   if (@$_POST['daftar']) {
@@ -83,7 +138,7 @@ a {
           </div>
         </div>
       </div>
-    </section>
+                </div>
 
 <!-- Promo Section - "We know design" -->
 
