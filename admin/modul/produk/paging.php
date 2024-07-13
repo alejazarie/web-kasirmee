@@ -38,8 +38,7 @@ foreach ($data_siswa as $pro):
                               <td><?=  $pro['nm_produk'];?></td>
                               <td><?= $pro['kategori'];?></td>
                               <td><?=  $pro['stok'];?></td>
-                              <td><?= $pro['rak'];?></td>
-                               <td><?= $pro['supplier'];?></td>
+                              
 
                               <td><?php 
 
@@ -81,10 +80,6 @@ foreach ($data_siswa as $pro):
                         <b><p><?= $pro['nm_produk']; ?></p></b>
                         <p>Stok</p>
                         <b><p><?= $pro['stok']; ?></p></b>
-                          <p>Rak</p>
-                        <b><p><?= $pro['rak']; ?></p></b>
-                         <p>Supplier</p>
-                        <b><p><?= $pro['supplier']; ?></p></b>
                          <p>Status</p>
                         <b><p><?php 
 
@@ -165,33 +160,7 @@ foreach ($data_siswa as $pro):
   </div> 
 
 
- <div class="form-group">
-    <label>Rak</label>
-  <input type="text" class="form-control" id="exampleInputEmail1" readonly="" value="<?= $pro['rak'];?>" aria-describedby="emailHelp" ><br>
-  <select class="form-control" name="rak">
-    <?php 
-    global $koneksi;
-    $query = mysqli_query($koneksi, "SELECT * FROM tb_rak");
-      foreach ($query as $suprak):
-     ?>
-     <option><?= $suprak['namarak']?></option><?php endforeach; ?>
-  </select>
-    
-  </div>
-
-  <div class="form-group">
-    <label>Supplier</label>
-  <input type="text" class="form-control" id="exampleInputEmail1" readonly=""  value="<?= $pro['supplier'];?>" aria-describedby="emailHelp"><br>
-  <select class="form-control" name="supplier">
-    <?php 
-    global $koneksi;
-    $query = mysqli_query($koneksi, "SELECT * FROM tb_supplier");
-      foreach ($query as $suprak):
-     ?>
-     <option><?= $suprak['namaspl']?></option><?php endforeach; ?>
-  </select>
-    
-  </div>
+ 
 
    <div class="form-group">
     <label>Harga Produk</label>

@@ -58,8 +58,7 @@
                         <th>Kode Produk</th>
                         <th>Nama Produk</th>
                         <th>Kategori</th>
-                        <th>Rak</th>
-                        <th>Supplier</th>
+                      
                         <th>Stok</th>
                         <th>Jumlah Masuk</th>
                         <th>Admin</th>

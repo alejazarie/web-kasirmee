@@ -62,16 +62,7 @@
   <input type="text" class="form-control" readonly="" id="kategori" name="kategori">
  
   </div>
-    <div class="form-group">
-    <label>Rak</label>
-    <input type="text" class="form-control" readonly="" id="rak" name="rak">
-  
-  </div>
-      <div class="form-group">
-    <label>Supplier</label>
-    <input type="text" class="form-control" readonly="" id="supplier" name="supplier">
-  
-  </div>
+    
       <div class="form-group">
     <label>Stok</label>
     <input type="text" class="form-control" readonly="" id="stok" name="stok">
@@ -132,8 +123,7 @@
                                         <th>Kode Produk</th>
                                         <th>Nama Produk</th>
                                         <th>Kategori</th>
-                                        <th>Rak</th>
-                                        <th>Supplier</th>
+                                      
                                         <th>Stok</th>
                                         <!--<th>Jenis Kelamin</th>
                                         <th>Tempat</th>
@@ -164,12 +154,7 @@
                     <td>
                       <?php echo $sa['kategori']; ?>
                     </td>
-                    <td>
-                      <?php echo $sa['rak']; ?>
-                    </td>
-                    <td>
-                      <?php echo $sa['supplier']; ?>
-                    </td>
+                  
                     <td>
                       <?php echo $sa['stok']; ?>
                     </td>

@@ -90,31 +90,9 @@ if (isset($_POST['edit'])) {
     <input type="text" class="form-control" id="exampleInputEmail1" name="stok" aria-describedby="emailHelp" >
  
   </div>
-    <div class="form-group">
-    <label>Rak</label>
-    <select name="rak" class="form-control">
-      <?php 
-      global $koneksi;
-      $query = mysqli_query($koneksi, "SELECT * FROM tb_rak");
-      foreach ($query as $rak):
-       ?>
-       <option value="<?= $rak['namarak']; ?>"><?= $rak['namarak']; ?></option><?php endforeach; ?>
-    </select>
+    
   
-  </div>
-      <div class="form-group">
-    <label>Supplier</label>
-   <select name="supplier" class="form-control">
-     <?php 
-     global $koneksi;
-     $query = mysqli_query($koneksi, "SELECT * FROM tb_supplier");
-     foreach ($query as $sup) :
 
-      ?>
-      <option><?= $sup['namaspl']?></option><?php endforeach; ?>
-   </select>
- 
-  </div>
     <div class="form-group">
     <label>Harga</label>
     <input type="text" class="form-control" name="harga">
@@ -149,8 +127,6 @@ if (isset($_POST['edit'])) {
                         <th>Nama Produk</th>
                         <th>Kategori Produk</th>
                         <th>Stok</th>
-                        <th>Rak</th>
-                        <th>Supplier</th>
                         <th>Status</th>
                         <th>Harga</th>
                         <th>Aksi</th>

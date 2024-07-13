@@ -139,18 +139,7 @@
                   <p>Menu Produk</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="index.php?m=rak&s=title" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Menu Rak</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="index.php?m=supplier&s=title" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Menu Supplier</p>
-                </a>
-              </li>
+             
               <li class="nav-item">
                 <a href="index.php?m=laporan&s=title" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>

@@ -40,8 +40,7 @@ foreach ($data_pro_ma as $pro):
                               <td><?=  $pro['kdproduk'];?></td>
                               <td><?= $pro['nm_produk'];?></td>
                                <td><?= $pro['kategori'];?></td>
-                               <td><?=  $pro['rak'];?></td>
-                              <td><?=  $pro['supplier'];?></td>
+                             
                               <td><?= $pro['stok'];?></td>
                               <td><?=  $pro['jml_masuk'];?></td>
                               <td><?= $pro['admin'];?></td>
@@ -77,10 +76,7 @@ foreach ($data_pro_ma as $pro):
                         <b><p><?= $pro['nm_produk']; ?></p></b>
                         <p>Stok</p>
                         <b><p><?= $pro['stok']; ?></p></b>
-                          <p>Rak</p>
-                        <b><p><?= $pro['rak']; ?></p></b>
-                         <p>Supplier</p>
-                        <b><p><?= $pro['supplier']; ?></p></b>
+                          
                          <p>Status</p>
                         <b><p><?php 
 

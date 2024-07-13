@@ -58,8 +58,7 @@
         document.getElementById("nm_produk").value = $(this).attr('data-nm_produk');
         document.getElementById("kategori").value = $(this).attr('data-kategori');
         document.getElementById("stok").value = $(this).attr('data-stok');
-        document.getElementById("rak").value = $(this).attr('data-rak');
-        document.getElementById("supplier").value = $(this).attr('data-supplier');
+       
         $('#modal_produk').modal('hide');
       }); 
       
