@@ -1,0 +1,38 @@
+.button-container {
+    background-color: transparent; /* Warna latar belakang kontainer transparan */
+    border: 1px solid #ccc; /* Border solid abu-abu */
+    border-radius: 10px; /* Sudut bulat untuk kontainer */
+    padding: 10px; /* Spasi internal di dalam kontainer */
+    display: inline-block; /* Menyusun kontainer secara horizontal */
+    margin-top: 6px; /* Spasi atas dari kontainer */
+    width: 100%; /* Lebar maksimal sesuai konten */
+    text-align: center; /* Posisi teks menjadi tengah */
+}
+
+.box-daftar {
+    
+    border-radius: 35px;
+    padding: 20px; /* Mengurangi spasi internal di dalam kontainer gambar */
+    text-align: center; /* Posisi teks menjadi tengah */
+    max-width: 400px; /* Mengatur lebar maksimum kontainer */
+    margin: auto; /* Untuk membuat kontainer berada di tengah */
+}
+
+.button {
+    margin-top: 20px; /* Spasi atas untuk memisahkan tombol dari teks */
+    padding: 9px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+}
+
+.login-text {
+    color: white; /* Warna teks menjadi putih */
+    margin-bottom: 7px; /* Spasi bawah untuk memisahkan teks dan tombol */
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
