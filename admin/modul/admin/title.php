@@ -2,16 +2,10 @@
 <?php include 'comp/header.php'; ?>
 <?php 
 
-if (isset($_POST['simpan'])) {
-	insert_user();
-}
 
-if (isset($_POST['hapus'])) {
-	delete_user();
-}
  ?>
 <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper" style=" background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(240,45,253,1) 100%);">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
