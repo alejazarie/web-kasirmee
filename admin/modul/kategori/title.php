@@ -2,15 +2,20 @@
 <?php 
 
 if (isset($_POST['simpan'])) {
-	insert_kategori();
+  // Validasi jika Nama Kategori kosong
+  if (empty($_POST['kategori'])) {
+      echo '<center><div class="alert alert-danger" role="alert">Lengkapi data Nama Kategori terlebih dahulu!</div></center>';
+  } else {
+      insert_kategori();
+  }
 }
 
 if (isset($_POST['hapus'])) {
-	hapus_kategori();
+  hapus_kategori();
 }
 
 if (isset($_POST['edit'])) {
-	update_kategori();
+  update_kategori();
 }
 
  ?>
