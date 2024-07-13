@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     <style>
         body {
-          
+            background-image: url('asset/img/qwe (5).jpg');
             color: white;
         }
         .container {
@@ -101,17 +101,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="container">
         <?php
-        // Menampilkan notifikasi jika username sudah digunakan
-        if (isset($notification_message)) {
-            echo '<div class="' . $notification_class . '">';
-            echo $notification_message;
-            echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
-            echo '<span aria-hidden="true">&times;</span>';
-            echo '</button>';
-            echo '</div>';
-        }
-        ?>
-        <?php
         // Menampilkan notifikasi jika success flag ada
         if (isset($_GET['success']) && $_GET['success'] == 'true') {
             echo '<div class="alert alert-success" role="alert">Data berhasil disimpan.</div>';
@@ -145,13 +134,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Script untuk menutup notifikasi dengan tombol close
-        $(document).ready(function(){
-            $(".alert .close").click(function(){
-                $(this).parent().fadeOut("slow");
-            });
-        });
-    </script>
+
 </body>
 </html>
