@@ -291,7 +291,7 @@ $row = mysqli_fetch_array($select_2);
                           $query = mysqli_query($koneksi, "SELECT sum(total) as jtotal FROM transaksi_temp");
                           $r = mysqli_fetch_array($query);
                            ?>
-                          <input type="text" name="total" value="<?= $r['jtotal']; ?>">
+                          <input type="text" name="total" value="<?= $r['jtotal']; ?>" readonly="">
                           <label>bayar</label>
                           <input type="text" name="bayar">
                           <button type="submit" class="btn btn-success" required name="bayar_submit">bayar</button>
@@ -305,7 +305,7 @@ $row = mysqli_fetch_array($select_2);
                           <form action="fungsi/print.php" target="_BLANK" method="POST">
                              
                           
-                          <input type="hidden" name="total" value="<?= $total; ?>">
+                          <input type="hidden" name="total" value="<?= $total; ?>" readonly="">
                         
                           <input type="hidden" name="bayar" value="<?= $bayar;?>">
                          
