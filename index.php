@@ -20,14 +20,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet" />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="dist/css/style.css" />
+    <link rel="stylesheet" href="dists/css/style.css" />
     <title>kasirmee</title>
 
    <!--css manual-->
     <link rel="stylesheet" href="manual.css">
    
   </head>
-  <body style="background-color:Orange;">
+  <body>
     <header>
       <div class="navbar">
         <div class="container">
@@ -58,7 +58,7 @@
              
             </div>
             <div class="box">
-              <img src="assets/img/blur-buy-card-cash.jpg" style="border-radius: 35px;" alt="" />
+              <img src="asset/img/blur-buy-card-cash.jpg" style="border-radius: 35px;" alt="" />
             </div>
           </div>
         </div>
@@ -154,18 +154,63 @@
     <br>
     <br>
     <br>
-        <div class="box-daftar">
+    <div class="box-daftar" style="background-image: url('asset/img/leaves-8413064_960_720.jpg');
+    border-radius: 35px;
+    padding: 20px; /* Mengurangi spasi internal di dalam kontainer gambar */
+    text-align: center; /* Posisi teks menjadi tengah */
+    max-width: 400px; /* Mengatur lebar maksimum kontainer */
+    margin: auto; /* Untuk membuat kontainer berada di tengah */
+">
           <h1>
             silahkan login untuk memulai <br />
           </h1>
-          <div class="button-container">
-          <p class="login-text"><b>login jika sudah<br> memiliki akun</b></p>
-    <a href="login_admin.php" class="button">Login</a>
+          <div class="button-container" style="background-color: transparent; /* Warna latar belakang kontainer transparan */
+    border: 1px solid #ccc; /* Border solid abu-abu */
+    border-radius: 10px; /* Sudut bulat untuk kontainer */
+    padding: 10px; /* Spasi internal di dalam kontainer */
+    display: inline-block; /* Menyusun kontainer secara horizontal */
+    margin-top: 6px; /* Spasi atas dari kontainer */
+    width: 100%; /* Lebar maksimal sesuai konten */
+    text-align: center; /* Posisi teks menjadi tengah */
+">
+    <p class="login-text" style="color: white; /* Warna teks menjadi putih */
+    margin-bottom: 7px; /* Spasi bawah untuk memisahkan teks dan tombol */
+    font-family: Georgia, 'Times New Roman', Times, serif;
+"><b>login jika sudah<br> memiliki akun</b></p>
+    <a href="login_admin.php" class="button" style="margin-top: 10px; /* Spasi atas untuk memisahkan tombol dari teks */
+    padding: 10px 20px; /* Padding tombol */
+  background-color: #28a745; /* Warna latar belakang tombol */
+    color: white; /* Warna teks tombol */
+    text-decoration: none; /* Hapus dekorasi teks */
+    border-radius: 5px; /* Sudut bulat untuk tombol */
+    border: none; /* Hapus border */
+    cursor: pointer; /* Kursor menjadi pointer saat diarahkan */
+    display: inline-block; /* Menyusun tombol secara horizontal */
+    ">Login</a>
 </div>
-    <div class="button-container">
-   <p class="login-text"><b>regis jika belum <br>memiliki akun</b></p>
-    <a href="register.php" class="button">Register</a>
+
+<div class="button-container" style="background-color: transparent; /* Warna latar belakang kontainer transparan */
+    border: 1px solid #ccc; /* Border solid abu-abu */
+    border-radius: 10px; /* Sudut bulat untuk kontainer */
+    padding: 10px; /* Spasi internal di dalam kontainer */
+    display: inline-block; /* Menyusun kontainer secara horizontal */
+    margin-top: 6px; /* Spasi atas dari kontainer */
+    width: 100%; /* Lebar maksimal sesuai konten */
+    text-align: center; /* Posisi teks menjadi tengah */
+">
+    <p class="login-text"><b>regis jika belum <br>memiliki akun</b></p>
+    <a href="register.php" class="button" style="padding: 10px 20px; /* Padding tombol */
+    background-color: #28a745; /* Warna latar belakang tombol */
+    color: white; /* Warna teks tombol */
+    text-decoration: none; /* Hapus dekorasi teks */
+    border-radius: 5px; /* Sudut bulat untuk tombol */
+    border: none; /* Hapus border */
+    cursor: pointer; /* Kursor menjadi pointer saat diarahkan */
+    display: inline-block; /* Menyusun tombol secara horizontal */
+    ">Register</a>
 </div>
+
+
 
           
         </div>
