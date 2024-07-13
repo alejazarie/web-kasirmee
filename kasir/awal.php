@@ -280,6 +280,46 @@ $row = mysqli_fetch_array($select_2);
                     </table>
                                     
                         </div>
+      <div class="table-responsive table--no-card m-b-30">
+  <table class="table table-borderless table-striped table-earning">
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Nama Produk</th>
+        <th>Jumlah Beli</th>
+        <th>Harga</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php 
+      $i = 1;
+      global $koneksi;
+      $select = mysqli_query($koneksi, "SELECT * FROM transaksi_temp");
+      foreach ($select as $krj):
+        ?>
+        <tr>
+          <td><?= $i++; ?></td>
+          <td><?= $krj['nm_produk']; ?></td>
+          <td>
+            <form action="" method="POST">
+              <input type="hidden" name="id" value="<?= $krj['id']; ?>">
+              <input type="hidden" name="kdproduk" value="<?= $krj['kdproduk']; ?>">
+              <input type="number" name="jumlah_beli" value="<?= $krj['jumlah_beli']; ?>" min="1" required onchange="this.form.submit()">
+          </td>
+          <td><?= rupiah($krj['total']); ?></td>
+          <td>
+            <input type="hidden" name="harga" value="<?= $krj['harga']; ?>">
+            <button type="submit" name="simpan_transaksi" class="btn btn-primary"><i class="fa fa-edit"></i> Update</button>
+            </form>
+            <a href="fungsi/delete.php?id=<?= $krj['id']; ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+          </td>
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+</div>
+
                         <br>
                    <?php 
 
