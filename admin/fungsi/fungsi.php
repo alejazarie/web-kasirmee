@@ -88,78 +88,85 @@ function delete_user()
 	
 }
 
-// update user
+/// update user
 function update_user()
 {
-	
-	global $koneksi;
-	$id = $_POST['id'];
-	$username = $_POST['username'];
-	$password = md5($_POST['password']);
-	$nama = $_POST['nama'];
-	$level = $_POST['level'];
-	$foto = $_FILES['foto']['name'];
+    global $koneksi;
+    $id = $_POST['id'];
+    $username = mysqli_real_escape_string($koneksi, $_POST['username']);
+    $password = md5($_POST['password']); // Disarankan menggunakan teknik hash yang lebih aman seperti bcrypt
+    $nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
+    $level = mysqli_real_escape_string($koneksi, $_POST['level']);
+    $foto = $_FILES['foto']['name'];
 
-	// unlink
-	$unlink = mysqli_query($koneksi, "SELECT * FROM tb_user WHERE id='$id'");
-	$row = mysqli_fetch_array($unlink);
+    // Ambil data user dari database
+    $query = "SELECT * FROM tb_user WHERE id='$id'";
+    $result = mysqli_query($koneksi, $query);
+    $row = mysqli_fetch_assoc($result);
+    $hapus_foto = $row['foto'];
 
-	$hapus_foto = $row['foto'];
-	
-	
-
-	// update
-
-	if(isset($_POST['ubahfoto']))
-	{
-		if ($row['foto']=="") 
-		{
-				if ($foto != "") {
-				$allowed_ext = array('png','jpg');
-				$x = explode(".", $foto);
-				$ekstensi = strtolower(end($x));
-				$file_tmp = $_FILES['foto']['tmp_name'];
-				$angka_acak = rand(1,999);
-		   		$nama_file_baru = $angka_acak.'-'.$foto;
-		   		    if (in_array($ekstensi, $allowed_ext) === true) {
-		      			move_uploaded_file($file_tmp, 'img/'.$nama_file_baru);
-		      			$result =  mysqli_query($koneksi, "UPDATE tb_user SET username='$username', password='$password', nama='$nama', level='$level', foto='$nama_file_baru' WHERE id='$id'");
-		      			
-		      			
-		    }
-
-
-
-			}
-		}else if ($row['foto']!="") {
-			if ($foto != "") {
-				$allowed_ext = array('png','jpg');
-				$x = explode(".", $foto);
-				$ekstensi = strtolower(end($x));
-				$file_tmp = $_FILES['foto']['tmp_name'];
-				$angka_acak = rand(1,999);
-		   		$nama_file_baru = $angka_acak.'-'.$foto;
-		   		    if (in_array($ekstensi, $allowed_ext) === true) {
-		      			move_uploaded_file($file_tmp, 'img/'.$nama_file_baru);
-		      			$result =  mysqli_query($koneksi, "UPDATE tb_user SET username='$username', password='$password', nama='$nama', level='$level', foto='$nama_file_baru' WHERE id='$id'");
-		      			if ($result) {
-		      				unlink("img/$hapus_foto");
-		      			}
-
-		      			
-		    }
-
-
-
-			}
-		}	
-	}
-
-	if (empty($_POST['foto'])) {
-		return  mysqli_query($koneksi, "UPDATE tb_user SET username='$username', password='$password', nama='$nama', level='$level' WHERE id='$id'");
-	}
-
+    // Jika foto ingin diubah
+    if (isset($_POST['ubahfoto'])) {
+        // Jika foto sebelumnya kosong atau tidak
+        if (empty($hapus_foto)) {
+            // Upload foto baru jika ada
+            if (!empty($foto)) {
+                $allowed_ext = array('png', 'jpg');
+                $x = explode(".", $foto);
+                $ekstensi = strtolower(end($x));
+                $file_tmp = $_FILES['foto']['tmp_name'];
+                $angka_acak = rand(1, 999);
+                $nama_file_baru = $angka_acak . '-' . $foto;
+                if (in_array($ekstensi, $allowed_ext)) {
+                    move_uploaded_file($file_tmp, 'img/' . $nama_file_baru);
+                    // Update data user dengan foto baru
+                    $query = "UPDATE tb_user SET username='$username', password='$password', nama='$nama', level='$level', foto='$nama_file_baru' WHERE id='$id'";
+                    $result = mysqli_query($koneksi, $query);
+                    if (!$result) {
+                        die("Query gagal dijalankan: " . mysqli_error($koneksi));
+                    }
+                }
+            }
+        } else {
+            // Jika foto sebelumnya ada
+            // Upload foto baru jika ada
+            if (!empty($foto)) {
+                $allowed_ext = array('png', 'jpg');
+                $x = explode(".", $foto);
+                $ekstensi = strtolower(end($x));
+                $file_tmp = $_FILES['foto']['tmp_name'];
+                $angka_acak = rand(1, 999);
+                $nama_file_baru = $angka_acak . '-' . $foto;
+                if (in_array($ekstensi, $allowed_ext)) {
+                    move_uploaded_file($file_tmp, 'img/' . $nama_file_baru);
+                    // Update data user dengan foto baru
+                    $query = "UPDATE tb_user SET username='$username', password='$password', nama='$nama', level='$level', foto='$nama_file_baru' WHERE id='$id'";
+                    $result = mysqli_query($koneksi, $query);
+                    if ($result) {
+                        unlink("img/$hapus_foto"); // Hapus foto lama
+                    } else {
+                        die("Query gagal dijalankan: " . mysqli_error($koneksi));
+                    }
+                }
+            } else {
+                // Jika foto tidak diubah, tetap gunakan foto lama
+                $query = "UPDATE tb_user SET username='$username', password='$password', nama='$nama', level='$level' WHERE id='$id'";
+                $result = mysqli_query($koneksi, $query);
+                if (!$result) {
+                    die("Query gagal dijalankan: " . mysqli_error($koneksi));
+                }
+            }
+        }
+    } else {
+        // Jika tidak mengubah foto, tetap gunakan foto lama
+        $query = "UPDATE tb_user SET username='$username', password='$password', nama='$nama', level='$level' WHERE id='$id'";
+        $result = mysqli_query($koneksi, $query);
+        if (!$result) {
+            die("Query gagal dijalankan: " . mysqli_error($koneksi));
+        }
+    }
 }
+
 
 // ---------------------------------------------------RAK SECTION---------------------------------\\
 
@@ -228,11 +235,10 @@ function insert_produk()
 	$nm_produk = $_POST['nm_produk'];
 	$kategori = $_POST['kategori'];
 	$stok = $_POST['stok'];
-	$rak = $_POST['rak'];
-	$supplier = $_POST['supplier'];
+	
 	$harga = $_POST['harga'];
 
-	return mysqli_query($koneksi, "INSERT INTO tb_produk SET kdproduk='$kdproduk', nm_produk='$nm_produk', kategori='$kategori', stok='$stok', rak='$rak', supplier='$supplier', harga='$harga'");
+	return mysqli_query($koneksi, "INSERT INTO tb_produk SET kdproduk='$kdproduk', nm_produk='$nm_produk', kategori='$kategori', stok='$stok', harga='$harga'");
 
 
 }
@@ -252,11 +258,10 @@ function update_produk()
 	$nm_produk = $_POST['nm_produk'];
 	$kategori = $_POST['kategori'];
 	$stok = $_POST['stok'];
-	$rak = $_POST['rak'];
-	$supplier = $_POST['supplier'];
+	
 	$harga = $_POST['harga'];
 
-	return mysqli_query($koneksi, "UPDATE tb_produk SET kdproduk='$kdproduk', nm_produk='$nm_produk', kategori='$kategori', stok='$stok', rak='$rak', supplier='$supplier', harga='$harga'");
+	return mysqli_query($koneksi, "UPDATE tb_produk SET kdproduk='$kdproduk', nm_produk='$nm_produk', kategori='$kategori', stok='$stok', harga='$harga'");
 }
 
 function select_produk()
@@ -304,8 +309,6 @@ function produk_masuk()
 	$kdproduk = $_POST['kdproduk'];
 	$nm_produk = $_POST['nm_produk'];
 	$kategori = $_POST['kategori'];
-	$rak = $_POST['rak'];
-	$supplier = $_POST['supplier'];
 	$stok = $_POST['stok'];
 	$jml_masuk = $_POST['jml_masuk'];
 	$admin = $_POST['admin'];
@@ -316,7 +319,7 @@ function produk_masuk()
 
 	$query = mysqli_query($koneksi, "UPDATE tb_produk SET stok='$tambah_stok' WHERE kdproduk='$kdproduk'");
 
-	$query_insert = mysqli_query($koneksi, "INSERT INTO tb_prod_masuk SET noinv='$noinv', tanggal='$tanggal', jam='$jam', kdproduk='$kdproduk', nm_produk='$nm_produk', kategori='$kategori', rak='$rak', supplier='$supplier', stok='$stok', jml_masuk='$jml_masuk', admin='$admin'");
+	$query_insert = mysqli_query($koneksi, "INSERT INTO tb_prod_masuk SET noinv='$noinv', tanggal='$tanggal', jam='$jam', kdproduk='$kdproduk', nm_produk='$nm_produk', kategori='$kategori', stok='$stok', jml_masuk='$jml_masuk', admin='$admin'");
 
 	if ($query_insert) {
 		echo '<script>window.history.back()</script>';
@@ -359,7 +362,7 @@ function hapus_laporan()
 // url
 function url()
 {
-	return $url = "//localhost/web-kasir-master/vendors/";
+	return $url = "//localhost/web-kasir/vendors/";
 }
 
 function rupiah($angka){
