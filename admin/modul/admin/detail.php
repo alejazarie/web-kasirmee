@@ -1,13 +1,22 @@
 <?php include 'comp/header.php'; ?>
 <?php
 
- if (isset($_POST['edit'])) {	
- 	echo "<meta http-equiv='refresh' content='0'>";
+if (isset($_POST['simpan'])) {
+  // Validasi jika Nama Kategori kosong
+  if (empty($_POST['kategori'])) {
+      echo '<div class="alert alert-danger" role="alert">Lengkapi data Nama Kategori terlebih dahulu!</div>';
+  } else {
+      insert_kategori();
+  }
+}
 
- 	update_user();
+if (isset($_POST['hapus'])) {
+  hapus_kategori();
+}
 
- } 
-
+if (isset($_POST['edit'])) {
+  update_kategori();
+}
 
 ?>
    <!-- Content Wrapper. Contains page content -->
