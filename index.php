@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="manual.css">
    
   </head>
-  <body style="background-image: url('assets/img/dark-grunge-style-scratched-metal-surface-edgy-weathered-texture_1106493-30652.avif');">
+  <body style="background-color:Orange;">
     <header>
       <div class="navbar">
         <div class="container">
