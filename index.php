@@ -1,5 +1,3 @@
-
-<!-- mengubah halaman login -->
 <!DOCTYPE html>
 <html lang="en" id="home">
   <head>
