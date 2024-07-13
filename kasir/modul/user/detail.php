@@ -23,10 +23,10 @@ if (isset($_POST['edit'])) {
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Detail <?php echo $key['nama']; ?></h1><br>
+                <div class="col-sm-11 text-center">
+                    <h1 class="m-0 text-dark">Profile <?php echo $key['nama']; ?></h1><br>
                 </div><!-- /.col -->
-                <div class="col-sm-6">
+                <div class="col-sm-11">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                     </ol>
