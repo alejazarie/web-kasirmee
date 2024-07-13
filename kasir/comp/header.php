@@ -34,6 +34,14 @@
   <link rel="stylesheet" href="<?= url() ?>plugins/summernote/summernote-bs4.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <style>
+      .sidebar {
+        background-image: url('asset/img/5.jpg');
+        /* Ganti dengan path atau URL gambar Anda */
+        background-size: cover;
+        background-position: center;
+      }
+      </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
