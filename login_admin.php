@@ -35,7 +35,7 @@ a {
   
 }
 .bagian3{
-  
+    background-image: url('asset/img/qwe (5).jpg');
   display: flex;
 align-items: center;
 justify-content: center;
