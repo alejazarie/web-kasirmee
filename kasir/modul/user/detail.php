@@ -1,20 +1,17 @@
 <?php include 'comp/header.php'; ?>
 
 <?php
-
 if (isset($_POST['edit'])) {
     // Memastikan tidak ada input yang kosong
     if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['nama'])) {
-        echo "<meta http-equiv='refresh' content='0'>";
         update_user();
     } else {
-        // Jika ada input yang kosong, tampilkan pesan error
-        echo '<div class="alert alert-danger" role="alert">
-                  Harap lengkapi semua kolom yang diperlukan!
-              </div>';
+        // Jika ada input yang kosong, set pesan error untuk setiap input yang kosong
+        $usernameError = empty($_POST['username']) ? 'Username tidak boleh kosong.' : '';
+        $passwordError = empty($_POST['password']) ? 'Password tidak boleh kosong.' : '';
+        $namaError = empty($_POST['nama']) ? 'Nama tidak boleh kosong.' : '';
     }
 }
-
 ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -105,15 +102,18 @@ if (isset($_POST['edit'])) {
 
                                                             <div class="form-group">
                                                                 <label>Username</label>
-                                                                <input type="text" class="form-control" value="<?= $key['username'];?>" id="exampleInputEmail1" name="username" aria-describedby="emailHelp" placeholder="Masukkan Username" required>
+                                                                <input type="text" class="form-control <?php echo !empty($usernameError) ? 'is-invalid' : ''; ?>" value="<?= $key['username'];?>" id="exampleInputEmail1" name="username" aria-describedby="emailHelp" placeholder="Masukkan Username" required>
+                                                                <div class="invalid-feedback"><?php echo $usernameError; ?></div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Password</label>
-                                                                <input type="password" class="form-control" id="exampleInputEmail1" name="password" aria-describedby="emailHelp" placeholder="Masukkan password" required>
+                                                                <input type="password" class="form-control <?php echo !empty($passwordError) ? 'is-invalid' : ''; ?>" id="exampleInputEmail1" name="password" aria-describedby="emailHelp" placeholder="Masukkan password" required>
+                                                                <div class="invalid-feedback"><?php echo $passwordError; ?></div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Nama User</label>
-                                                                <input type="text" class="form-control" value="<?= $key['nama'];?>" id="exampleInputEmail1" name="nama" aria-describedby="emailHelp" placeholder="Masukkan nama" required>
+                                                                <input type="text" class="form-control <?php echo !empty($namaError) ? 'is-invalid' : ''; ?>" value="<?= $key['nama'];?>" id="exampleInputEmail1" name="nama" aria-describedby="emailHelp" placeholder="Masukkan nama" required>
+                                                                <div class="invalid-feedback"><?php echo $namaError; ?></div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Level User</label>

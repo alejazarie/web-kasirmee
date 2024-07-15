@@ -78,7 +78,7 @@ function delete_user()
 	return mysqli_query($koneksi, "DELETE FROM tb_user WHERE id='$id'");
 }
 
-// update user
+
 function update_user()
 {
     global $koneksi;
@@ -86,6 +86,13 @@ function update_user()
     $username = mysqli_real_escape_string($koneksi, $_POST['username']);
     $password = mysqli_real_escape_string($koneksi, md5($_POST['password'])); // Gunakan md5 atau fungsi hash lainnya sesuai kebutuhan
     $nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
+    
+    // Validasi input tidak boleh kosong
+    if (empty($username) || empty($password) || empty($nama)) {
+        $_SESSION['message'] = "Please fill out this field.";
+        $_SESSION['message_type'] = "danger";
+        return false; // Atau berikan pesan error jika perlu
+    }
     
     // Untuk foto, pastikan file upload di-handle dengan benar
     if (!empty($_FILES['foto']['name'])) {
@@ -129,6 +136,7 @@ function update_user()
         return false; // Gagal update
     }
 }
+
 
 
 // ---------------------------------------------------TRANSAKSI SECTION----------------------------------------------------------
