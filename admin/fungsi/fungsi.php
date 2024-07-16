@@ -18,22 +18,22 @@ function summon_admin()
 // select user by admin
 function select_user()
 {
-	global $koneksi;
-	if (isset($_POST['go'])) {
-		$cari = $_POST['cari'];
-		return mysqli_query($koneksi, "SELECT * FROM tb_user WHERE nama LIKE '%".$cari."%'");
-	}else{
-		return mysqli_query($koneksi, "SELECT * FROM tb_user");
-	}
-	
+    global $koneksi;
+    if (isset($_POST['go'])) {
+        $cari = $_POST['cari'];
+        return mysqli_query($koneksi, "SELECT * FROM tb_user WHERE nama LIKE '%".$cari."%'");
+    }else{
+        return mysqli_query($koneksi, "SELECT * FROM tb_user");
+    }
+    
 }
 
 function select_user_2()
 {
-	global $koneksi;
-	$query =  mysqli_query($koneksi, "SELECT count(id) AS jadmin FROM tb_user ORDER BY id DESC");
-	$key = mysqli_fetch_array($query);
-	echo $key['jadmin'];
+    global $koneksi;
+    $query =  mysqli_query($koneksi, "SELECT count(id) AS jadmin FROM tb_user ORDER BY id DESC");
+    $key = mysqli_fetch_array($query);
+    echo $key['jadmin'];
 }
 
 
@@ -42,37 +42,48 @@ function select_user_2()
 function insert_user()
 {
 	global $koneksi;
-	$username = $_POST['username'];
+
+	// Ambil nilai dari form
+	$username = mysqli_real_escape_string($koneksi, $_POST['username']);
 	$password = md5($_POST['password']);
-	$nama = $_POST['nama'];
-	$level = $_POST['level'];
+	$nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
+	$level = mysqli_real_escape_string($koneksi, $_POST['level']);
 	$foto = $_FILES['foto']['name'];
 
-	// cek username
-	$cek = mysqli_query($koneksi, "SELECT * FROM tb_user WHERE username ='$username'");
-	$row = mysqli_fetch_row($cek);
+	// Periksa jika username kosong atau hanya berisi spasi
+	if (empty(trim($username))) {
+		echo '<script>alert("Username tidak boleh kosong atau hanya berisi spasi")</script>';
+		return false;
+	}
 
-	if ($row) {
-		echo "username  '%".$username."%' sudah ada";
-	}else if($foto != ""){
-		
-		$allowed_ext = array('png','jpg');
+	// Validasi foto jika ada
+	if ($foto != "") {
+		$allowed_ext = array('png', 'jpg');
 		$x = explode(".", $foto);
 		$ekstensi = strtolower(end($x));
 		$file_tmp = $_FILES['foto']['tmp_name'];
-		$angka_acak = rand(1,999);
-   		$nama_file_baru = $angka_acak.'-'.$foto;
-   		    if (in_array($ekstensi, $allowed_ext) 	=== true) {
-      			move_uploaded_file($file_tmp, 'img/'.$nama_file_baru);
-      			$result = mysqli_query($koneksi, "INSERT INTO tb_user SET username='$username', password='$password', nama='$nama', level='$level', foto='$nama_file_baru'");
-      			
-    }
+		$angka_acak = rand(1, 999);
+		$nama_file_baru = $angka_acak . '-' . $foto;
 
+		if (in_array($ekstensi, $allowed_ext)) {
+			move_uploaded_file($file_tmp, 'img/' . $nama_file_baru);
+			$query = "INSERT INTO tb_user (username, password, nama, level, foto) VALUES ('$username', '$password', '$nama', '$level', '$nama_file_baru')";
+		} else {
+			echo '<script>alert("Ekstensi file tidak diizinkan")</script>';
+			return false;
+		}
+	} else {
+		// Jika tidak ada foto
+		$query = "INSERT INTO tb_user (username, password, nama, level) VALUES ('$username', '$password', '$nama', '$level')";
+	}
 
-
-	
-	}else if($foto==""){
-		return mysqli_query($koneksi, "INSERT INTO tb_user SET username='$username', password='$password', nama='$nama', level='$level'");
+	// Eksekusi query
+	if (mysqli_query($koneksi, $query)) {
+		echo '<script>alert("Data user berhasil disimpan")</script>';
+		return true;
+	} else {
+		echo "Error: " . mysqli_error($koneksi);
+		return false;
 	}
 }
 
@@ -80,93 +91,74 @@ function insert_user()
 
 function delete_user()
 {
-	global $koneksi;
-	$id = $_POST['id'];
-	$cekimg = mysqli_query($koneksi, "SELECT * FROM tb_user WHERE id='$id'");
-	$row = mysqli_fetch_array($cekimg);
+    global $koneksi;
+    $id = $_POST['id'];
+    $cekimg = mysqli_query($koneksi, "SELECT * FROM tb_user WHERE id='$id'");
+    $row = mysqli_fetch_array($cekimg);
 
-	
 }
 
-/// update user
+// update user
 function update_user()
 {
     global $koneksi;
-    $id = $_POST['id'];
+    $id = mysqli_real_escape_string($koneksi, $_POST['id']);
     $username = mysqli_real_escape_string($koneksi, $_POST['username']);
-    $password = md5($_POST['password']); // Disarankan menggunakan teknik hash yang lebih aman seperti bcrypt
+    $password = md5(mysqli_real_escape_string($koneksi, $_POST['password']));
     $nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
-    $level = mysqli_real_escape_string($koneksi, $_POST['level']);
     $foto = $_FILES['foto']['name'];
 
-    // Ambil data user dari database
-    $query = "SELECT * FROM tb_user WHERE id='$id'";
-    $result = mysqli_query($koneksi, $query);
-    $row = mysqli_fetch_assoc($result);
+    // Validasi input kosong atau spasi
+    if (empty(trim($username)) || empty(trim($_POST['password'])) || empty(trim($nama))) {
+        return false; // Mengembalikan false jika ada input yang kosong setelah di-trim
+    }
+
+    // Hapus foto yang lama jika ada penggantian foto
+    $unlink = mysqli_query($koneksi, "SELECT * FROM tb_user WHERE id='$id'");
+    $row = mysqli_fetch_array($unlink);
     $hapus_foto = $row['foto'];
 
-    // Jika foto ingin diubah
+    // Update data
     if (isset($_POST['ubahfoto'])) {
-        // Jika foto sebelumnya kosong atau tidak
-        if (empty($hapus_foto)) {
-            // Upload foto baru jika ada
-            if (!empty($foto)) {
+        if ($row['foto'] == "") {
+            // Tambahkan foto baru jika tidak ada foto sebelumnya
+            if ($foto != "") {
                 $allowed_ext = array('png', 'jpg');
                 $x = explode(".", $foto);
                 $ekstensi = strtolower(end($x));
                 $file_tmp = $_FILES['foto']['tmp_name'];
                 $angka_acak = rand(1, 999);
                 $nama_file_baru = $angka_acak . '-' . $foto;
-                if (in_array($ekstensi, $allowed_ext)) {
+                if (in_array($ekstensi, $allowed_ext) === true) {
                     move_uploaded_file($file_tmp, 'img/' . $nama_file_baru);
-                    // Update data user dengan foto baru
-                    $query = "UPDATE tb_user SET username='$username', password='$password', nama='$nama', level='$level', foto='$nama_file_baru' WHERE id='$id'";
-                    $result = mysqli_query($koneksi, $query);
-                    if (!$result) {
-                        die("Query gagal dijalankan: " . mysqli_error($koneksi));
-                    }
+                    $result =  mysqli_query($koneksi, "UPDATE tb_user SET username='$username', password='$password', nama='$nama', foto='$nama_file_baru' WHERE id='$id'");
+                    return $result;
                 }
             }
         } else {
-            // Jika foto sebelumnya ada
-            // Upload foto baru jika ada
-            if (!empty($foto)) {
+            // Ganti foto dan hapus foto lama jika ada foto sebelumnya
+            if ($foto != "") {
                 $allowed_ext = array('png', 'jpg');
                 $x = explode(".", $foto);
                 $ekstensi = strtolower(end($x));
                 $file_tmp = $_FILES['foto']['tmp_name'];
                 $angka_acak = rand(1, 999);
                 $nama_file_baru = $angka_acak . '-' . $foto;
-                if (in_array($ekstensi, $allowed_ext)) {
+                if (in_array($ekstensi, $allowed_ext) === true) {
                     move_uploaded_file($file_tmp, 'img/' . $nama_file_baru);
-                    // Update data user dengan foto baru
-                    $query = "UPDATE tb_user SET username='$username', password='$password', nama='$nama', level='$level', foto='$nama_file_baru' WHERE id='$id'";
-                    $result = mysqli_query($koneksi, $query);
+                    $result =  mysqli_query($koneksi, "UPDATE tb_user SET username='$username', password='$password', nama='$nama', foto='$nama_file_baru' WHERE id='$id'");
                     if ($result) {
-                        unlink("img/$hapus_foto"); // Hapus foto lama
-                    } else {
-                        die("Query gagal dijalankan: " . mysqli_error($koneksi));
+                        unlink("img/$hapus_foto"); // Hapus foto lama setelah berhasil update
                     }
-                }
-            } else {
-                // Jika foto tidak diubah, tetap gunakan foto lama
-                $query = "UPDATE tb_user SET username='$username', password='$password', nama='$nama', level='$level' WHERE id='$id'";
-                $result = mysqli_query($koneksi, $query);
-                if (!$result) {
-                    die("Query gagal dijalankan: " . mysqli_error($koneksi));
+                    return $result;
                 }
             }
         }
-    } else {
-        // Jika tidak mengubah foto, tetap gunakan foto lama
-        $query = "UPDATE tb_user SET username='$username', password='$password', nama='$nama', level='$level' WHERE id='$id'";
-        $result = mysqli_query($koneksi, $query);
-        if (!$result) {
-            die("Query gagal dijalankan: " . mysqli_error($koneksi));
-        }
     }
-}
 
+    // Jika tidak ada penggantian foto, hanya update username, password, dan nama
+    return mysqli_query($koneksi, "UPDATE tb_user SET username='$username', password='$password', nama='$nama' WHERE id='$id'");
+}
 
 // ---------------------------------------------------RAK SECTION---------------------------------\\
 
@@ -240,23 +232,42 @@ function insert_produk()
         $stok = $_POST['stok'];
         $harga = $_POST['harga'];
 
-        // Gunakan parameterized query untuk menghindari SQL injection
-        $query = "INSERT INTO tb_produk (kdproduk, nm_produk, kategori, stok, harga) VALUES (?, ?, ?, ?, ?)";
-        $stmt = mysqli_prepare($koneksi, $query);
+        // Validasi tidak boleh kosong atau hanya spasi
+        if (empty(trim($kdproduk)) || empty(trim($nm_produk)) || empty(trim($kategori)) || empty(trim($stok)) || empty(trim($harga))) {
+            echo '<script>alert("Semua kolom harus diisi.");</script>';
+            return false;
+        }
 
-        // Bind parameter ke statement
-        mysqli_stmt_bind_param($stmt, 'sssdi', $kdproduk, $nm_produk, $kategori, $stok, $harga);
+        // Validasi nama produk harus unik
+        $query_check = "SELECT * FROM tb_produk WHERE nm_produk = ?";
+        $stmt_check = mysqli_prepare($koneksi, $query_check);
+        mysqli_stmt_bind_param($stmt_check, 's', $nm_produk);
+        mysqli_stmt_execute($stmt_check);
+        mysqli_stmt_store_result($stmt_check);
 
-        // Eksekusi statement
-        $result = mysqli_stmt_execute($stmt);
+        if (mysqli_stmt_num_rows($stmt_check) > 0) {
+            echo '<script>alert("Nama produk sudah ada dalam database.");</script>';
+            return false;
+        }
 
-        // Periksa apakah insert berhasil
+        // Gunakan parameterized query untuk insert
+        $query_insert = "INSERT INTO tb_produk (kdproduk, nm_produk, kategori, stok, harga) VALUES (?, ?, ?, ?, ?)";
+        $stmt_insert = mysqli_prepare($koneksi, $query_insert);
+        mysqli_stmt_bind_param($stmt_insert, 'sssid', $kdproduk, $nm_produk, $kategori, $stok, $harga);
+        
+        // Eksekusi statement insert
+        $result = mysqli_stmt_execute($stmt_insert);
+
+        // Periksa hasil eksekusi
         if ($result) {
+            echo '<script>alert("Produk berhasil ditambahkan.");</script>';
             return true;
         } else {
+            echo '<script>alert("Gagal menambahkan produk.");</script>';
             return false;
         }
     } else {
+        echo '<script>alert("Semua kolom harus diisi.");</script>';
         return false;
     }
 }
@@ -322,6 +333,7 @@ function select_produk()
     $row = mysqli_fetch_assoc($query);
     return $row['jumlah_produk'];
 }
+
 // ------------------------------------------------KATEGORI SECTION---------------------------------------------------------------\\\
 
 function insert_kategori()
