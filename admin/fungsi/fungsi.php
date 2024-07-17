@@ -16,7 +16,7 @@ function summon_admin()
 
 // -------------------------------------USER SECTION--------------------------------------------------------------------
 // select user by admin
-function select_user()
+function select_use()
 {
     global $koneksi;
     if (isset($_POST['go'])) {
@@ -83,7 +83,7 @@ function insert_user()
 		return true;
 	} else {
 		echo "Error: " . mysqli_error($koneksi);
-		return false;
+		return false;
 	}
 }
 
@@ -91,11 +91,15 @@ function insert_user()
 
 function delete_user()
 {
-    global $koneksi;
-    $id = $_POST['id'];
-    $cekimg = mysqli_query($koneksi, "SELECT * FROM tb_user WHERE id='$id'");
-    $row = mysqli_fetch_array($cekimg);
+	global $koneksi;
+	$id = $_POST['id'];
+	$cekimg = mysqli_query($koneksi, "SELECT * FROM tb_user WHERE id='$id'");
+	$row = mysqli_fetch_array($cekimg);
 
+	// hapus gambar
+	$foto = $row['foto'];
+	unlink("img/$foto");
+	return mysqli_query($koneksi, "DELETE FROM tb_user WHERE id='$id'");
 }
 
 // update user
@@ -278,11 +282,22 @@ function update_produk()
 {
     global $koneksi;
     $id = $_POST['id'];
-    $kdproduk = $_POST['kdproduk'];
-    $nm_produk = $_POST['nm_produk'];
-    $kategori = $_POST['kategori'];
+    $kdproduk = trim($_POST['kdproduk']); // Menghapus spasi di awal dan akhir string
+    $nm_produk = trim($_POST['nm_produk']);
+    $kategori = trim($_POST['kategori']);
     $stok = $_POST['stok'];
     $harga = $_POST['harga'];
+
+    // Validasi input
+    if (empty($kdproduk) || empty($nm_produk)) {
+        // Jika ada kolom yang kosong
+        echo '<script>alert("Semua kolom harus diisi.");</script>';
+        return false; // Menghentikan proses lebih lanjut jika validasi tidak terpenuhi
+    } elseif (!is_numeric($stok) || !is_numeric($harga)) {
+        // Jika stok/harga bukan angka
+        echo '<script>alert("Stok dan harga harus berupa angka.");</script>';
+        return false; // Menghentikan proses lebih lanjut jika validasi tidak terpenuhi
+    }
 
     // Gunakan parameterized query untuk menghindari SQL injection
     $query = "UPDATE tb_produk SET kdproduk=?, nm_produk=?, kategori=?, stok=?, harga=? WHERE id=?";
@@ -296,10 +311,14 @@ function update_produk()
 
     // Periksa apakah update berhasil
     if ($result) {
+        // Redirect atau munculkan pesan berhasil
+        echo '<script>alert("Produk berhasil diperbarui.");</script>';
         return true;
     } else {
+        // Munculkan pesan gagal
+        echo '<script>alert("Gagal memperbarui produk.");</script>';
         return false;
-    }
+   }
 }
 
 
