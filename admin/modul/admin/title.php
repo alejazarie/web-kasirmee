@@ -3,6 +3,13 @@
 <?php 
 
 
+if (isset($_POST['simpan'])) {
+	insert_user();
+}
+
+if (isset($_POST['hapus'])) {
+	delete_user();
+}
  ?>
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style=" background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(240,45,253,1) 100%);">
@@ -14,10 +21,7 @@
             <h1 class="m-0 text-dark">Dashboard</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">User</li>
-            </ol>
+            
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
