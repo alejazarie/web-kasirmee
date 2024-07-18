@@ -6,16 +6,16 @@ if (isset($_POST['simpan'])) {
   if (empty($_POST['kategori'])) {
       echo '<center><div class="alert alert-danger" role="alert">Lengkapi data Nama Kategori terlebih dahulu!</div></center>';
   } else {
-      insert_kategori();
+      insert_user();
   }
 }
 
 if (isset($_POST['hapus'])) {
-  hapus_kategori();
+  hapus_user();
 }
 
 if (isset($_POST['edit'])) {
-  update_kategori();
+  update_user();
 }
 
  ?>

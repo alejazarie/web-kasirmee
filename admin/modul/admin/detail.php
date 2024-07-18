@@ -1,24 +1,45 @@
 <?php include 'comp/header.php'; ?>
 <?php
-
-if (isset($_POST['simpan'])) {
-  // Validasi jika Nama Kategori kosong
-  if (empty($_POST['kategori'])) {
-      echo '<div class="alert alert-danger" role="alert">Lengkapi data Nama Kategori terlebih dahulu!</div>';
-  } else {
-      insert_kategori();
-  }
-}
-
-if (isset($_POST['hapus'])) {
-  hapus_kategori();
-}
-
 if (isset($_POST['edit'])) {
-  update_kategori();
+    // Validasi input kosong atau spasi
+    if (empty(trim($_POST['username'])) || empty(trim($_POST['password'])) || empty(trim($_POST['nama'])) || empty(trim($_POST['level']))) {
+        echo '<div id="notif" class="alert alert-danger alert-dismissible fade show" role="alert">
+               <strong>Harap lengkapi semua field.</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+              </div>';
+    } else {
+        echo "<meta http-equiv='refresh' content='0'>";
+        update_user();
+    }
+}
+?>
+<style>
+/* CSS untuk notifikasi */
+#notif {
+    position: fixed; /* Tetap di posisi tetap di layar */
+    top: 20px; /* Jarak dari atas */
+    right: 500px; /* Jarak dari kanan */
+    z-index: 9999; /* Mengatur tumpukan di atas elemen lain */
+    width: 300px; /* Lebar notifikasi */
+    border-radius: 5px; /* Sudut melengkung */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Bayangan */
+    padding: 15px; /* Padding dalam notifikasi */
+    background-color: #f8d7da; /* Warna latar belakang */
+    color: #721c24; /* Warna teks */
+    border: 1px solid #f5c6cb; /* Border */
 }
 
-?>
+#notif button.close {
+    position: absolute; /* Menempatkan tombol close */
+    top: 10px; /* Jarak dari atas */
+    right: 5px; /* Jarak dari kanan */
+    font-size: 20px; /* Ukuran font */
+    color: inherit; /* Warna ikon close */
+}
+</style>
+
    <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper" style=" background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(240,45,253,1) 100%);">>
     <!-- Content Header (Page header) -->
@@ -137,11 +158,10 @@ if (isset($_POST['edit'])) {
     <input type="text" class="form-control" value="<?= $key['nama'];?>" id="exampleInputEmail1" name="nama" aria-describedby="emailHelp" placeholder="Masukkan nama">
    
   </div>
-    <div class="form-group">
+  <div class="form-group">
     <label>Level User</label>
-    <input type="text" class="form-control" value="<?= $key['level'];?>" id="exampleInputEmail1" name="level" aria-describedby="emailHelp" placeholder="Masukkan level">
-   
-  </div>
+    <input type="text" class="form-control" value="<?= $key['level']; ?>" id="exampleInputEmail1" name="level" aria-describedby="emailHelp" placeholder="Masukkan level" <?php if ($key['level'] == 'admin') echo 'readonly';?>>
+</div>
 
    <div class="form-group">
     <label>Foto User</label>
