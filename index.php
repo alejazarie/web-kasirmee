@@ -81,7 +81,7 @@
     <br>
     <br>
     <br>
-        <div class="box-services" style="background-color: #28a745; /* Warna latar belakang kontainer transparan */
+        <div class="box-services" style="background-color:; /* Warna latar belakang kontainer transparan */
     border: 1px solid #ccc; /* Border solid abu-abu */
     border-radius: 10px; /* Sudut bulat untuk kontainer */ ;" >
          <div class="box">
