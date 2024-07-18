@@ -38,8 +38,7 @@
             <ul class="menu">
               <li><a href="#home">Home</a></li>
               <li><a href="#services">about us</a></li>
-              <li><a href="#pantai">team</a></li>
-              <li class="active"><a href="#daftar">daftar</a></li>
+              <li class="active"><a href="#daftar">Masuk</a></li>
             </ul>
             <i class="fa-solid fa-bars menu-bar"></i>
           </div>
@@ -58,7 +57,7 @@
              
             </div>
             <div class="box">
-              <img src="asset/img/blur-buy-card-cash.jpg" style="border-radius: 35px;" alt="" />
+              <img src="asset\img\blur-buy-card-cash.jpg" style="border-radius: 35px;" alt="" />
             </div>
           </div>
         </div>
@@ -77,24 +76,44 @@
     <br>
     <br>
     <br>
-        <div class="box-services" style="background-color: transparent; /* Warna latar belakang kontainer transparan */
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+        <div class="box-services" style="background-color: #28a745; /* Warna latar belakang kontainer transparan */
     border: 1px solid #ccc; /* Border solid abu-abu */
     border-radius: 10px; /* Sudut bulat untuk kontainer */ ;" >
-          <div class="box">
-            <i class="fa-solid fa-coins"></i>
-            <h4>mudah di gunakan</h4>
-            <p></p>
-          </div>
-          <div class="box">
-            <i class="fa-solid fa-certificate"></i>
-            <h4>menarik</h4>
-            <p></p>
-          </div>
-          <div class="box">
-            <i class="fa-solid fa-people-roof"></i>
-            <h4>Aman dan Ramah</h4>
-            <p></p>
-          </div>
+         <div class="box">
+    <i class="fa-solid fa-coins"></i>
+    <h4>Mudah Digunakan</h4>
+    <p>
+        Dengan antarmuka yang sederhana dan navigasi yang lancar, 
+        aplikasi ini memastikan pengguna dapat mengelola transaksi 
+        dengan cepat dan mudah, tanpa memerlukan pelatihan khusus
+    </p>
+</div>
+
+<div class="box">
+    <i class="fa-solid fa-certificate"></i>
+    <h4>Menarik</h4>
+    <p>
+        Didesain dengan tampilan yang modern dan menarik, 
+        aplikasi ini tidak hanya mempermudah pengguna dalam bertransaksi 
+        tetapi juga memberikan pengalaman visual yang memikat
+    </p>
+</div>
+
+<div class="box">
+    <i class="fa-solid fa-people-roof"></i>
+    <h4>Aman dan Ramah</h4>
+    <p>
+        Dengan fokus pada pengalaman pengguna yang responsif dan ramah, 
+        aplikasi ini dirancang untuk memastikan kenyamanan setiap pengguna 
+        dalam menggunakan fitur-fitur aplikasi
+    </p>
+</div>
+
         </div>
       </div>
     </div>
@@ -107,41 +126,6 @@
     <br>
     <br>
     <!-- Services -->
-
-    <!-- Pantai -->
-<div class="pantai" id="pantai">
-  <div class="container">
-  <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="box-pantai">
-      <div class="box">
-        <img src="assets/img/autumn-leaf-falling-revealing-intricate-leaf-vein-generated-by-ai_188544-9869.avif" alt="" />
-        <h3>Gawang jati alam</h3>
-        <p>Ketua</p>
-        
-      </div>
-      <div class="box">
-        <img src="assets/img/autumn-leaf-falling-revealing-intricate-leaf-vein-generated-by-ai_188544-9869.avif" alt="" />
-        <h3>dito edhitya</h3>
-        <p>Anggota</p>
-        
-      </div>
-      <div class="box">
-        <img src="assets/img/autumn-leaf-falling-revealing-intricate-leaf-vein-generated-by-ai_188544-9869.avif" alt="" />
-        <h3>Aditya Reza I</h3>
-        <p>Anggota</p>
-       
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Pantai -->
 
     <!-- Daftar -->
     <div class="daftar" id="daftar">
@@ -164,7 +148,7 @@
           <h1>
             silahkan login untuk memulai <br />
           </h1>
-          <div class="button-container" style="background-color: transparent; /* Warna latar belakang kontainer transparan */
+          <div class="button-container" style="background-color: #4169E1; /* Warna latar belakang kontainer transparan */
     border: 1px solid #ccc; /* Border solid abu-abu */
     border-radius: 10px; /* Sudut bulat untuk kontainer */
     padding: 10px; /* Spasi internal di dalam kontainer */
@@ -176,7 +160,7 @@
     <p class="login-text" style="color: white; /* Warna teks menjadi putih */
     margin-bottom: 7px; /* Spasi bawah untuk memisahkan teks dan tombol */
     font-family: Georgia, 'Times New Roman', Times, serif;
-"><b>login jika sudah<br> memiliki akun</b></p>
+">
     <a href="login_admin.php" class="button" style="margin-top: 10px; /* Spasi atas untuk memisahkan tombol dari teks */
     padding: 10px 20px; /* Padding tombol */
   background-color: #28a745; /* Warna latar belakang tombol */
