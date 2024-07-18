@@ -80,14 +80,15 @@ foreach ($data_kat as $pro):
                     </form><br>
 
 
-<!-- Trigger Modal Edit -->
+<!-- Trigger Modal Edit --><!--
+
 <div data-toggle="modal" data-target="#edit-kat<?= $pro['id'] ?>">
     <button type="button" class="btn btn-info datapotensi" data-toggle="tooltip" title="Edit">
         <i class="fa fa-edit"></i>
     </button>
 </div>
 
-<!-- Modal Edit -->
+ Modal Edit
 <div class="modal fade" id="edit-kat<?= $pro['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="edit-kat<?= $pro['id'] ?>" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -113,7 +114,7 @@ foreach ($data_kat as $pro):
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 <script>
 function validateForm(form) {

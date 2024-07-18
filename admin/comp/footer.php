@@ -1,7 +1,7 @@
 
 <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <strong>Copyright &copy; <script>document.write(new Date().getFullYear());</script> Zibran | Powered By <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+  <footer class="main-footer" style="background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(240,45,253,1) 100%);">
+    <strong>Copyright &copy; <script>document.write(new Date().getFullYear());</script> Zibran | Powered By AdminLTE.io.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.0.5

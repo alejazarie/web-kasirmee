@@ -86,7 +86,6 @@ function insert_user()
 		return false;
 	}
 }
-
 // delete user
 
 function delete_user()
@@ -148,7 +147,7 @@ function update_user()
                     move_uploaded_file($file_tmp, 'img/' . $nama_file_baru);
                     $result =  mysqli_query($koneksi, "UPDATE tb_user SET username='$username', password='$password', nama='$nama', foto='$nama_file_baru' WHERE id='$id'");
                     if ($result) {
-                        unlink("img/$hapus_foto"); // Hapus foto lama setelah berhasil update
+                        unlink("img/" . $hapus_foto); // Hapus foto lama setelah berhasil update
                     }
                     return $result;
                 }
@@ -157,8 +156,9 @@ function update_user()
     }
 
     // Jika tidak ada penggantian foto, hanya update username, password, dan nama
-    return mysqli_query($koneksi, "UPDATE tb_user SET username='$username', password='$password', nama='$nama' WHERE id='$id'");
+    return mysqli_query($koneksi, "UPDATE tb_user SET username='$username', password='$password', nama='$nama' WHERE id='$id'");
 }
+
 
 // ---------------------------------------------------RAK SECTION---------------------------------\\
 
@@ -356,33 +356,47 @@ function insert_kategori()
     global $koneksi;
     $kategori = trim($_POST['kategori']); // Menghapus spasi di awal dan akhir
 
-    // Validasi: Pastikan kategori tidak kosong
+    // Validasi: Pastikan kategori tidak kosong setelah di-trim
     if (empty($kategori)) {
+        echo '<div class="alert alert-danger" role="alert">Kategori tidak boleh kosong!</div>';
         return false; // Kembali false jika kategori kosong
+    }
+
+    // Validasi: Pastikan kategori tidak hanya berisi spasi
+    if (strlen($kategori) === 0) {
+        echo '<center><div class="alert alert-danger" role="alert">Kategori tidak boleh hanya berisi spasi!</div></center>';
+        return false; // Kembali false jika kategori hanya berisi spasi
     }
 
     // Sanitasi input untuk mencegah SQL injection
     $kategori = mysqli_real_escape_string($koneksi, $kategori);
 
     // Melakukan query INSERT
-    return mysqli_query($koneksi, "INSERT INTO tb_kat SET kategori='$kategori'");
+    $query = mysqli_query($koneksi, "INSERT INTO tb_kat (kategori) VALUES ('$kategori')");
+
+    if (!$query) {
+        echo '<div class="alert alert-danger" role="alert">Gagal menambahkan kategori. Silakan coba lagi.</div>';
+    }
+
+    return $query;
 }
+
 
 function hapus_kategori()
 {
-	global $koneksi;
-	$id = $_POST['id'];
-	return mysqli_query($koneksi, "DELETE FROM tb_kat WHERE id='$id'");
-}
-
-function update_kategori()
-{
     global $koneksi;
-    $id = mysqli_real_escape_string($koneksi, $_POST['id']);
-    $kategori = mysqli_real_escape_string($koneksi, $_POST['kategori']);
 
-    return mysqli_query($koneksi, "UPDATE tb_kat SET kategori='$kategori' WHERE id='$id'");
+    // Pastikan ada data yang dikirim dari form
+    if (!isset($_POST['id']) || empty($_POST['id'])) {
+        return false; // Kembali false jika id tidak ada atau kosong
+    }
+
+    $id = mysqli_real_escape_string($koneksi, $_POST['id']);
+
+    // Melakukan query DELETE
+    return mysqli_query($koneksi, "DELETE FROM tb_kat WHERE id='$id'");
 }
+
 
 
 // ---------------------------------------------------PRODUK MASUK SECTION----------------------------------------------------------\\

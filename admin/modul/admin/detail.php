@@ -41,7 +41,7 @@ if (isset($_POST['edit'])) {
 </style>
 
    <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper" style=" background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(240,45,253,1) 100%);">>
+  <div class="content-wrapper" style=" background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(240,45,253,1) 100%);">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">

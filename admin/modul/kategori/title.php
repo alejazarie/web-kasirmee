@@ -1,24 +1,49 @@
 <?php include 'comp/header.php'; ?>
-<?php 
-
+<?php
 if (isset($_POST['simpan'])) {
-  // Validasi jika Nama Kategori kosong
-  if (empty($_POST['kategori'])) {
-      echo '<center><div class="alert alert-danger" role="alert">Lengkapi data Nama Kategori terlebih dahulu!</div></center>';
-  } else {
-      insert_user();
-  }
+    $kategori = trim($_POST['kategori']); // Menghapus spasi di awal dan akhir
+
+    // Validasi jika Nama Kategori kosong
+    if (empty($kategori)) {
+        echo '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                Nama Kategori tidak boleh kosong!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>';
+    } elseif (strlen(trim($_POST['kategori'])) === 0) {
+        echo '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                Kategori tidak boleh hanya berisi spasi!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>';
+    } else {
+        insert_kategori();
+    }
 }
 
 if (isset($_POST['hapus'])) {
-  hapus_user();
+    if (hapus_kategori()) {
+        echo '<div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                Kategori berhasil dihapus.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>';
+    } else {
+        echo '<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                Gagal menghapus kategori. Silakan coba lagi.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>';
+    }
 }
 
-if (isset($_POST['edit'])) {
-  update_user();
-}
 
- ?>
+?>
+
   <div class="content-wrapper" style=" background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(240,45,253,1) 100%);">
     <!-- Content Header (Page header) -->
     <div class="content-header" style="background: url('asset\img/hb.jpg');">
