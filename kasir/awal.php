@@ -214,6 +214,7 @@ $row = mysqli_fetch_array($select_2);
        
       </form>
       <!-- END FORM PESANAN -->
+      
       <div class="table-responsive table--no-card m-b-30">
   <table class="table table-borderless table-striped table-earning">
     <thead>
@@ -222,6 +223,7 @@ $row = mysqli_fetch_array($select_2);
         <th>Nama Produk</th>
         <th>Jumlah Beli</th>
         <th>Harga</th>
+        <th>Total</th>
         <th>Aksi</th>
       </tr>
     </thead>
@@ -231,59 +233,80 @@ $row = mysqli_fetch_array($select_2);
       global $koneksi;
       $select = mysqli_query($koneksi, "SELECT * FROM transaksi_temp");
       foreach ($select as $krj):
-        ?>
-        <tr>
-          <td><?= $i++; ?></td>
-          <td><?= $krj['nm_produk']; ?></td>
-          <td>
-            <form action="" method="POST">
-              <input type="hidden" name="id" value="<?= $krj['id']; ?>">
-              <input type="hidden" name="kdproduk" value="<?= $krj['kdproduk']; ?>">
-              <input type="number" name="jumlah_beli" value="<?= $krj['jumlah_beli']; ?>" min="1" required onchange="this.form.submit()">
-          </td>
-          <td><?= rupiah($krj['total']); ?></td>
-          <td>
-            <input type="hidden" name="harga" value="<?= $krj['harga']; ?>">
-            <button type="submit" name="simpan_transaksi" class="btn btn-primary"><i class="fa fa-edit"></i> Update</button>
-            </form>
-            <a href="fungsi/delete.php?id=<?= $krj['id']; ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-          </td>
-        </tr>
+        // Ambil data harga dari produk dari tabel tb_produk
+        $select_produk = mysqli_query($koneksi, "SELECT harga FROM tb_produk WHERE kdproduk='" . $krj['kdproduk'] . "'");
+        $produk_data = mysqli_fetch_assoc($select_produk);
+        $harga_asli = $produk_data['harga'];
+      ?>
+      <tr>
+        <td><?= $i++; ?></td>
+        <td><?= $krj['nm_produk']; ?></td>
+        <td>
+          <form action="" method="POST">
+            <input type="hidden" name="id" value="<?= $krj['id']; ?>">
+            <input type="hidden" name="kdproduk" value="<?= $krj['kdproduk']; ?>">
+            <input type="number" name="jumlah_beli" value="<?= $krj['jumlah_beli']; ?>" min="1" required>
+        </td>
+        <td>Rp<?= number_format($harga_asli, 0, ',', '.'); ?></td> <!-- Tampilkan harga asli dari produk dengan format Rp -->
+        <td>Rp<?= number_format($krj['total'], 0, ',', '.'); ?></td> <!-- Tampilkan total dengan format Rp -->
+        <td>
+          <input type="hidden" name="harga" value="<?= $harga_asli; ?>"> <!-- Simpan harga asli sebagai nilai -->
+          <button type="submit" name="simpan_transaksi" class="btn btn-primary"><i class="fa fa-edit"></i> Update</button>
+          </form>
+          <a href="fungsi/delete.php?id=<?= $krj['id']; ?>" class="btn btn-danger delete-btn" data-id="<?= $krj['id']; ?>"><i class="fa fa-trash"></i> Delete</a>
+        </td>
+      </tr>
       <?php endforeach; ?>
     </tbody>
   </table>
 </div>
 
+
+
+<script>
+// Script untuk handle delete tanpa refresh
+document.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (confirm('Apakah Anda yakin ingin menghapus item ini?')) {
+            let id = this.getAttribute('data-id');
+            fetch(`fungsi/delete.php?id=${id}`, { method: 'GET' })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.replace(window.location.href);
+                    } else {
+                        alert('Gagal menghapus item. Silakan coba lagi.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    });
+});
+</script>
+
+
+
                         <br>
                    <?php 
+if (isset($_POST['bayar_submit'])) {
+  $total = $_POST['total'];
+  $bayar = $_POST['bayar'];
 
-                        if (!empty(isset($_POST['bayar_submit']))) {
-                          global $koneksi;
-                          $total = $_POST['total'];
-                          $bayar = $_POST['bayar'];
+  if (!is_numeric($bayar)) {
+      echo '<div class="alert alert-danger" role="alert">Masukkan angka untuk kolom bayar!</div>';
+  } else {
+      // kembalian + hitung
+      if ($bayar < $total) {
+          $kurang = $total - $bayar;
+          echo '<div class="alert alert-danger" role="alert">Uang Anda kurang ' . number_format($kurang, 0, ',', '.') . ' !</div>';
+      } else {
+          $kembalian = $bayar - $total;
+      }
+  }
+}
 
-                      
+?>
 
-
-                          // kembalian + hitung
-                          
-                          if ($bayar < $total) {
-                            $kurang = $total - $bayar;
-                            echo '<div class="alert alert-danger" role="alert">
-                                         uang anda kurang '.rupiah($kurang).' !
-                                        </div>';
-
-                          }else{
-                          $kembalian = $bayar - $total;  
-                          }
-                          
-
-
-
-
-                        }
-
-                         ?>
                           <form action="" method="POST">
                           <label>total</label>
                           <?php 
@@ -293,7 +316,7 @@ $row = mysqli_fetch_array($select_2);
                            ?>
                           <input type="text" name="total" value="<?= $r['jtotal']; ?>" readonly="">
                           <label>bayar</label>
-                          <input type="text" name="bayar">
+                          <input type="text" name="bayar" pattern="[0-9]+" title="Masukkan angka saja" required>
                           <button type="submit" class="btn btn-success" required name="bayar_submit">bayar</button>
                           <label>kembalian</label>
                           <input type="text" name="kembalian" value="<?= $kembalian; ?>" readonly="">
