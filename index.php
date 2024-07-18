@@ -189,30 +189,7 @@
     ">Login</a>
 </div>
 
-<div class="button-container" style="background-color: transparent; /* Warna latar belakang kontainer transparan */
-    border: 1px solid #ccc; /* Border solid abu-abu */
-    border-radius: 10px; /* Sudut bulat untuk kontainer */
-    padding: 10px; /* Spasi internal di dalam kontainer */
-    display: inline-block; /* Menyusun kontainer secara horizontal */
-    margin-top: 6px; /* Spasi atas dari kontainer */
-    width: 100%; /* Lebar maksimal sesuai konten */
-    text-align: center; /* Posisi teks menjadi tengah */
-">
-    <p class="login-text"><b>regis jika belum <br>memiliki akun</b></p>
-    <a href="register.php" class="button" style="padding: 10px 20px; /* Padding tombol */
-    background-color: #28a745; /* Warna latar belakang tombol */
-    color: white; /* Warna teks tombol */
-    text-decoration: none; /* Hapus dekorasi teks */
-    border-radius: 5px; /* Sudut bulat untuk tombol */
-    border: none; /* Hapus border */
-    cursor: pointer; /* Kursor menjadi pointer saat diarahkan */
-    display: inline-block; /* Menyusun tombol secara horizontal */
-    ">Register</a>
-</div>
-
-
-
-          
+        
         </div>
       </div>
     </div>
