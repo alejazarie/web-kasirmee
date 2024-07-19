@@ -82,58 +82,64 @@ function delete_user()
 function update_user()
 {
     global $koneksi;
-    $id = mysqli_real_escape_string($koneksi, $_POST['id']);
-    $username = mysqli_real_escape_string($koneksi, $_POST['username']);
-    $password = mysqli_real_escape_string($koneksi, md5($_POST['password'])); // Gunakan md5 atau fungsi hash lainnya sesuai kebutuhan
-    $nama = mysqli_real_escape_string($koneksi, $_POST['nama']);
     
-    // Validasi input tidak boleh kosong
+    // Ambil nilai dari $_POST
+    $id = (int) $_POST['id']; // Pastikan ID adalah integer
+    $username = mysqli_real_escape_string($koneksi, trim($_POST['username']));  
+    $password = mysqli_real_escape_string($koneksi, md5($_POST['password']));
+    $nama = mysqli_real_escape_string($koneksi, trim($_POST['nama']));  
+    
+    $foto = $_FILES['foto']['name'];
+    
+    // Validasi input tidak boleh hanya spasi atau kosong
     if (empty($username) || empty($password) || empty($nama)) {
-        $_SESSION['message'] = "Please fill out this field.";
-        $_SESSION['message_type'] = "danger";
-        return false; // Atau berikan pesan error jika perlu
+        echo "<script>alert('Data tidak boleh kosong atau hanya berisi spasi.');</script>";
+        return false;  // Keluar dari fungsi jika ada data yang tidak valid
     }
     
-    // Untuk foto, pastikan file upload di-handle dengan benar
-    if (!empty($_FILES['foto']['name'])) {
-        $foto = $_FILES['foto']['name'];
-        $file_tmp = $_FILES['foto']['tmp_name'];
-
-        // Proses upload foto
-        $allowed_ext = array('png', 'jpg');
-        $x = explode(".", $foto);
-        $ekstensi = strtolower(end($x));
-        $angka_acak = rand(1, 999);
-        $nama_file_baru = $angka_acak . '-' . $foto;
-
-        if (in_array($ekstensi, $allowed_ext)) {
-            move_uploaded_file($file_tmp, '../admin/img/' . $nama_file_baru);
-        }
-
-        // Query untuk mengupdate data dengan foto baru
-        $query = "UPDATE tb_user SET username='$username', password='$password', nama='$nama', foto='$nama_file_baru' WHERE id='$id'";
-    } else {
-        // Query untuk mengupdate data tanpa mengubah foto
-        $query = "UPDATE tb_user SET username='$username', password='$password', nama='$nama' WHERE id='$id'";
-    }
-
-    // Eksekusi query
-    $result = mysqli_query($koneksi, $query);
-
-    // Cek apakah berhasil atau tidak
-    if ($result) {
-        // Jika ada foto lama, hapus foto lama dari direktori
-        if (!empty($_POST['ubahfoto'])) {
-            $unlink = mysqli_query($koneksi, "SELECT foto FROM tb_user WHERE id='$id'");
-            $row = mysqli_fetch_array($unlink);
-            $hapus_foto = $row['foto'];
-            if (!empty($hapus_foto)) {
-                unlink("../admin/img/$hapus_foto");
+    // Hapus foto lama jika ada perubahan foto baru
+    $unlink = mysqli_query($koneksi, "SELECT * FROM tb_user WHERE id='$id'");
+    $row = mysqli_fetch_array($unlink);
+    $hapus_foto = $row['foto'];
+    
+    // Proses update data
+    if (isset($_POST['ubahfoto'])) {
+        if ($foto != "") {
+            $allowed_ext = array('png', 'jpg');
+            $x = explode(".", $foto);
+            $ekstensi = strtolower(end($x));
+            $file_tmp = $_FILES['foto']['tmp_name'];
+            $angka_acak = rand(1, 999);
+            $nama_file_baru = $angka_acak . '-' . $foto;
+            
+            if (in_array($ekstensi, $allowed_ext)) {
+                move_uploaded_file($file_tmp, '../admin/img/' . $nama_file_baru);
+                
+                // Update dengan foto baru
+                $result =  mysqli_query($koneksi, "UPDATE tb_user SET username='$username', password='$password', nama='$nama', foto='$nama_file_baru' WHERE id='$id'");
+                
+                if ($result) {
+                    // Hapus foto lama
+                    if (!empty($hapus_foto) && file_exists("../admin/img/$hapus_foto")) {
+                        unlink("../admin/img/$hapus_foto");
+                    }
+                    echo "Data berhasil diupdate.";
+                } else {
+                    echo "Gagal mengupdate data.";
+                }
+            } else {
+                echo "Ekstensi file tidak sesuai. Hanya bisa upload file dengan ekstensi PNG atau JPG.";
             }
         }
-        return true; // Berhasil update
     } else {
-        return false; // Gagal update
+        // Update tanpa mengubah foto
+        $result = mysqli_query($koneksi, "UPDATE tb_user SET username='$username', password='$password', nama='$nama' WHERE id='$id'");
+        
+        if ($result) {
+            echo "Data berhasil diupdate.";
+        } else {
+            echo "Gagal mengupdate data.";
+        }
     }
 }
 

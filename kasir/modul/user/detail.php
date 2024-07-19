@@ -1,10 +1,14 @@
 <?php include 'comp/header.php'; ?>
-
 <?php
-if (isset($_POST['edit'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Memastikan tidak ada input yang kosong
     if (!empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['nama'])) {
+        // Panggil fungsi untuk mengupdate user
         update_user();
+        
+        // Setelah update, refresh halaman
+        echo "<meta http-equiv='refresh' content='0'>";
+        exit; // Keluar dari skrip setelah melakukan refresh
     } else {
         // Jika ada input yang kosong, set pesan error untuk setiap input yang kosong
         $usernameError = empty($_POST['username']) ? 'Username tidak boleh kosong.' : '';
@@ -13,6 +17,7 @@ if (isset($_POST['edit'])) {
     }
 }
 ?>
+
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper" style="background: linear-gradient(to right,green,white); ;">
