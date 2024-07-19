@@ -65,7 +65,7 @@ if (isset($_POST['edit'])) {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" name="simpan" class="btn btn-primary">Save changes</button>
+        <button type="submit" name="simpan" class="btn btn-primary">Delete</button>
       </div>
         </form>
     </div>
